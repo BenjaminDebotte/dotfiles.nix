@@ -1,19 +1,11 @@
 { config, pkgs, ... }:
 
 {
-    programs.hyprland = {
-        enable = true;
+  # Full definition in users/hyprland.nix
+  programs.hyprland.enable = true;
 
-        xwayland = {
-            enable = true;
-        };
-        
-
-        portalPackage = pkgs.xdg-desktop-portal-hyprland;
-    };
-
-    environment.systemPackages = with pkgs; [
-      hyprpaper
+  environment.systemPackages = with pkgs; [
+    hyprpaper
       kitty
       libnotify
       mako
@@ -25,5 +17,5 @@
       wl-clipboard
       wofi
       waybar
-    ];
+  ];
 }
