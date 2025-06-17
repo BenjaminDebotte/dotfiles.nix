@@ -44,6 +44,7 @@ in
 				"git"
 				"history"
 				"wd"
+        "tmux"
 			# {
 			#           name = "zsh-powerlevel10k";
 			# 	  src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
