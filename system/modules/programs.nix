@@ -6,6 +6,11 @@
     enable = true;
     wlr.enable = false;
     xdgOpenUsePortal = false;
+    config = {
+      common = {
+          default = "*";
+        };
+    };
     extraPortals = [
       pkgs.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-gtk
@@ -18,8 +23,6 @@
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
     };
-
-    hyprland.enable = true;
 
     gnupg = {
       agent = {

@@ -358,6 +358,36 @@
         "type": "github"
       }
     },
+    "hyprland-plugins": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "nixpkgs": [
+          "hyprland-plugins",
+          "hyprland",
+          "nixpkgs"
+        ],
+        "systems": [
+          "hyprland-plugins",
+          "hyprland",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1750184339,
+        "narHash": "sha256-/QGKUdSOXJInLwlDzgtZZvPdbA+xI2z9CFbZ+iBN3j4=",
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "rev": "c0e675dd87d737f8ef64327291cbbb201f3764ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "type": "github"
+      }
+    },
     "hyprland-protocols": {
       "inputs": {
         "nixpkgs": [
@@ -570,6 +600,21 @@
         "type": "github"
       }
     },
+    "nix-filter": {
+      "locked": {
+        "lastModified": 1693833173,
+        "narHash": "sha256-hlMABKrGbEiJD5dwUSfnw1CQ3bG7KKwDV+Nx3bEZd7U=",
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "rev": "ac030bd9ba98e318e1f4c4328d60766ade8ebe8b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1749794982,
@@ -661,9 +706,32 @@
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "hyprland-plugins": "hyprland-plugins",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "split-monitor-workspaces": "split-monitor-workspaces"
+      }
+    },
+    "split-monitor-workspaces": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "nix-filter": "nix-filter"
+      },
+      "locked": {
+        "lastModified": 1749573726,
+        "narHash": "sha256-Bj11uVqKPHI2sKsXMQdVhdMMbJ403Ps6x4jOcmVfr2Q=",
+        "owner": "Duckonaut",
+        "repo": "split-monitor-workspaces",
+        "rev": "a0015f8ba44bc194916dc797501ea06823c51926",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Duckonaut",
+        "repo": "split-monitor-workspaces",
+        "type": "github"
       }
     },
     "systems": {
