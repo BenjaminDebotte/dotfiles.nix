@@ -1,7 +1,7 @@
 {
   lib,
   fetchFromGitHub,
-  make,
+  gnumake,
   hyprland,
   hyprlandPlugins,
 }:
@@ -13,15 +13,18 @@ hyprlandPlugins.mkHyprlandPlugin hyprland {
     owner = "shezdy";
     repo = "hyprsplit";
     rev = "v0.49.0";
-    hash = "sha256-331e0a447f66aab066462856e029148969de3c012729955d35defce75171cadc";
+    hash = "sha256-0jrsiUoQi/VXM2Ji7YTOEYDYYlBI2C3ZbgQpYoAEVKI=";
   };
 
   # any nativeBuildInputs required for the plugin
-  nativeBuildInputs = [make];
+  inherit (hyprland) nativeBuildInputs;
+  # nativeBuildInputs = [gnumake];
 
   # set any buildInputs that are not already included in Hyprland
   # by default, Hyprland and its dependencies are included
-  buildInputs = [];
+  buildInputs = [hyprland] ++ hyprland.buildInputs;
+  buildFlags = ["all"];
+
 
   meta = {
     homepage = "https://github.com/shezdy/hyprsplit/";
