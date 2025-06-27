@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 
 {
   
@@ -43,7 +43,6 @@
     pkgs.zsh-powerlevel10k
     pkgs.ethtool
     pkgs.viewnior
-    pkgs-unstable.hyprshot
     pkgs.catppuccin-cursors.macchiatoBlue
     pkgs.catppuccin-gtk
     pkgs.papirus-folders

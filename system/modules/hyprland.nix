@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, pkgs-unstable, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
   # Full definition in users/hyprland.nix
@@ -6,19 +6,19 @@
     enable = true;
   };
 
-  environment.systemPackages =  [
-    pkgs.hyprpaper
-    pkgs-unstable.hyprlandPlugins.hyprsplit
-    pkgs.kitty
-    pkgs.libnotify
-    pkgs.mako
-    pkgs.qt5.qtwayland
-    pkgs.qt6.qtwayland
-    pkgs.swayidle
-    pkgs.swaylock-effects
-    pkgs.wlogout
-    pkgs.wl-clipboard
-    pkgs.wofi
-    pkgs.waybar
+  environment.systemPackages = with pkgs; [
+    hyprpaper
+    hyprlandPlugins.hyprsplit
+    kitty
+    libnotify
+    mako
+    qt5.qtwayland
+    qt6.qtwayland
+    swayidle
+    swaylock-effects
+    wlogout
+    wl-clipboard
+    wofi
+    waybar
   ];
 }
