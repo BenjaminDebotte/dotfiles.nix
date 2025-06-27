@@ -4,7 +4,6 @@
   
 
   home.packages = [
-
     # Dev stuff
     pkgs.gcc
     pkgs.go

@@ -18,13 +18,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
+    };
+
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, split-monitor-workspaces,  ... }@inputs:
     let 
     lib = nixpkgs.lib;
-  system = "x86_64-linux";
-  pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; }; # Despite it being defined in system/modules
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; }; # Despite it being defined in system/modules
     pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
   in
   {
@@ -33,25 +38,24 @@
       modules = [
         ./system/configuration.nix 
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.bdebotte = import ./home/default.nix;
-              extraSpecialArgs = {
-                inherit inputs;
-                inherit pkgs;
-                inherit pkgs-unstable;
-              };
-            };
-          }
       ];
       specialArgs = {
         inherit pkgs-unstable;
       };
     };
 
-
+    homeConfigurations = {
+      bdebotte = home-manager.lib.homeManagerConfiguration
+      {
+          inherit pkgs;
+          modules = [ ./home ];
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit pkgs;
+            inherit pkgs-unstable;
+            inherit split-monitor-workspaces;
+          };
+      };
+    };
   };
 }

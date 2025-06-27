@@ -1,7 +1,6 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, split-monitor-workspaces, ... }:
 
 {
-  home.packages = [ pkgs.hyprlandPlugins.hyprsplit ];
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -11,6 +10,7 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     plugins = [
+      split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
     ];
   };
 

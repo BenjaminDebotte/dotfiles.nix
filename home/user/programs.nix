@@ -2,6 +2,8 @@
 
 
 {
+  programs.home-manager.enable = true;
+
   programs.google-chrome = {
    enable = true;
   };
@@ -16,5 +18,4 @@
     };
   };
 
-  programs.home-manager.enable = true;
 }
