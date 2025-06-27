@@ -1,4 +1,4 @@
-{ inputs, pkgs, split-monitor-workspaces, ... }:
+{ inputs, pkgs, ... }:
 
 {
 
@@ -10,7 +10,8 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     plugins = [
-      split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
     ];
   };
 
