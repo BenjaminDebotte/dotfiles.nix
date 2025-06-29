@@ -18,7 +18,7 @@
     swaylock-effects
     wlogout
     wl-clipboard
-    wofi
+    rofi
     waybar
   ];
 }

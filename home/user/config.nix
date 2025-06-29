@@ -10,7 +10,7 @@ in
       ".config/wlogout".source = "${configDir}/wlogout";
       ".config/waybar".source = "${configDir}/waybar";
       ".config/btop".source = "${configDir}/btop";
-      ".config/wofi".source = "${configDir}/wofi";
+      ".config/rofi".source = "${configDir}/rofi";
       ".config/mako".source = "${configDir}/mako";
       ".p10k.zsh".source = "${configDir}/zsh/.p10k.zsh";
   };
