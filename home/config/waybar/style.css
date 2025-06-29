@@ -28,85 +28,48 @@
 * {
     border: none;
     font-size: 14px;
-    font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF" ;
+    font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF";
     min-height: 25px;
     color: @efFg;
 }
 
 window#waybar {
-  background: transparent;
-  margin: 5px;
- }
-
-#custom-logo {
-  padding: 0 10px;
+    background: transparent;
+    margin-bottom: 5px;
 }
 
-.modules-right {
-  padding: 0 15px;
-  border-radius: 15px 15px 15px 15px;
-  margin-top: 2px;
-  margin-right: 20px;
-  background: @efBg0;
-}
-
-.modules-center {
-  padding: 0 15px;
-  margin-top: 2px;
-  border-radius: 15px 15px 15px 15px;
-  background: @efBg0;
-}
-
+.modules-right,
+.modules-center,
 .modules-left {
-  padding: 0 15px;
-  border-radius: 15px 15px 15px 15px;
-  margin-top: 2px;
-  margin-left: 20px;
-  background: @efBg0;
+    border-radius: 15px;
+    margin-top: 2px;
+    background: transparent;
+}
+.modules-right,
+.modules-left {
+    padding: 0 10px;
 }
 
-#battery,
-#custom-clipboard,
-#custom-colorpicker,
-#custom-powerDraw,
-#bluetooth,
-#pulseaudio,
-#network,
-#disk,
-#memory,
-#backlight,
-#cpu,
-#temperature,
-#custom-weather,
-#idle_inhibitor,
-#jack,
-#tray,
-#window,
-#workspaces,
-#clock {
-  padding: 0 5px;
-}
-#pulseaudio {
-  padding-top: 3px;
-}
+.modules-right { margin-right: 20px; }
+.modules-left  { margin-left: 20px;  }
 
 #workspaces button.active {
-  background-color: @efBgGreen;
+    background-color: @efBg2;
 }
 
 #workspaces button.focused {
-  background: @efBgGreen;
-  border-radius: 10px;
+    background: @efBg2;
+    border-radius: 10px;
+}
+
+#window {
+  padding: 0 20px;
 }
 
 #temperature.critical,
 #pulseaudio.input.source-muted,
 #pulseaudio.output.muted {
-  background-color: @efBgRed;
-}
-
-#clock{
-  color: @efFg;
+    background-color: @efBgRed;
 }
 
 #battery.charging {
@@ -131,4 +94,84 @@ window#waybar {
         background-color: @efBg0;
         color: @efFg;
     }
+}
+
+/* MODULES STYLE */
+
+#clock,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#battery,
+#tray,
+#custom-clipboard,
+#custom-colorpicker,
+#custom-powerDraw,
+#bluetooth,
+#disk,
+#backlight,
+#temperature,
+#custom-weather,
+#idle_inhibitor,
+#jack,
+#window,
+#workspaces {
+    transition: border-color 0.2s ease-in-out;
+}
+
+#clock {
+    background-color: @efBg1;
+    border: 2px solid @efBg2;
+    color: @efFg;
+    min-width: 80px;
+}
+
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#battery,
+#tray,
+#custom-clipboard,
+#custom-colorpicker,
+#custom-powerDraw,
+#bluetooth,
+#disk,
+#backlight,
+#temperature,
+#custom-weather,
+#idle_inhibitor,
+#jack,
+#window,
+#workspaces {
+    background-color: @efBg1;
+    border: 2px solid @efBg2;
+    color: @efFg;
+    min-width: 80px;
+}
+
+
+
+#clock:hover,
+#cpu:hover,
+#memory:hover,
+#network:hover,
+#pulseaudio:hover,
+#battery:hover,
+#tray:hover,
+#custom-clipboard:hover,
+#custom-colorpicker:hover,
+#custom-powerDraw:hover,
+#bluetooth:hover,
+#disk:hover,
+#backlight:hover,
+#temperature:hover,
+#custom-weather:hover,
+#idle_inhibitor:hover,
+#jack:hover,
+#window:hover,
+#workspaces:hover {
+    border-color: @efFg;
+    background-color: @efBg4;
 }
