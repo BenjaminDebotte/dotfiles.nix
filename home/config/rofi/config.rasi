@@ -1,0 +1,4 @@
+configuration {
+  modes: [ combi ];
+}
+@theme "themes/rounded-green-dark"
