@@ -1,1 +1,3 @@
-return {}
+return {
+	"norcalli/nvim-colorizer",
+}
