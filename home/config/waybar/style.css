@@ -1,41 +1,36 @@
-/* :root { */
-/* 	 Base Colors - Dark Theme  */
-/* 	--ef-fg: #d3c6aa; */
-/* 	--ef-red: #e67e80; */
-/* 	--ef-orange: #e69875; */
-/* 	--ef-yellow: #dbbc7f; */
-/* 	--ef-green: #a7c080; */
-/* 	--ef-aqua: #83c092; */
-/* 	--ef-blue: #7fbbb3; */
-/* 	--ef-purple: #d699b6; */
-/* 	--ef-gray-0: #7a8478; */
-/* 	--ef-gray-1: #859289; */
-/* 	--ef-gray-2: #9da9a0; */
-/* 	--ef-statusline-1: #a7c080; */
-/* 	--ef-statusline-2: #d3c6aa; */
-/* 	--ef-statusline-3: #e67e80; */
-/**/
-/* 	 Medium Background - Dark Theme (Default) */
-/* 	--ef-bg-dim: #232a2e; */
-/* 	--ef-bg-0: #2d353b; */
-/* 	--ef-bg-1: #343f44; */
-/* 	--ef-bg-2: #3d484d; */
-/* 	--ef-bg-3: #475258; */
-/* 	--ef-bg-4: #4f585e; */
-/* 	--ef-bg-5: #56635f; */
-/* 	--ef-bg-visual: #543a48; */
-/* 	--ef-bg-red: #514045; */
-/* 	--ef-bg-green: #425047; */
-/* 	--ef-bg-blue: #3a515d; */
-/* 	--ef-bg-yellow: #4d4c43; */
-/* } */
-/**/
+@define-color efFg             #d3c6aa;
+@define-color efRed            #e67e80;
+@define-color efOrange         #e69875;
+@define-color efYellow         #dbbc7f;
+@define-color efGreen          #a7c080;
+@define-color efAqua           #83c092;
+@define-color efBlue           #7fbbb3;
+@define-color efPurple         #d699b6;
+@define-color efGray0          #7a8478;
+@define-color efGray1          #859289;
+@define-color efGray2          #9da9a0;
+@define-color efStatusline1    #a7c080;
+@define-color efStatusline2    #d3c6aa;
+@define-color efStatusline3    #e67e80;
+@define-color efBgDim          #232a2e;
+@define-color efBg0            #2d353b;
+@define-color efBg1            #343f44;
+@define-color efBg2            #3d484d;
+@define-color efBg3            #475258;
+@define-color efBg4            #4f585e;
+@define-color efBg5            #56635f;
+@define-color efBgVisual       #543a48;
+@define-color efBgRed          #514045;
+@define-color efBgGreen        #425047;
+@define-color efBgBlue         #3a515d;
+@define-color efBgYellow       #4d4c43;
+
 * {
     border: none;
     font-size: 14px;
     font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF" ;
     min-height: 25px;
-    color: #d3c6aa;
+    color: @efFg;
 }
 
 window#waybar {
@@ -52,22 +47,22 @@ window#waybar {
   border-radius: 15px 15px 15px 15px;
   margin-top: 2px;
   margin-right: 20px;
-  background: #2d353b;
+  background: @efBg0;
 }
 
 .modules-center {
   padding: 0 15px;
   margin-top: 2px;
   border-radius: 15px 15px 15px 15px;
-  background: #2d353b;
+  background: @efBg0;
 }
 
 .modules-left {
   padding: 0 15px;
   border-radius: 15px 15px 15px 15px;
   margin-top: 2px;
-  background: #2d353b;
   margin-left: 20px;
+  background: @efBg0;
 }
 
 #battery,
@@ -96,34 +91,34 @@ window#waybar {
 }
 
 #workspaces button.active {
-  color: #a7c080;
+  background-color: @efBgGreen;
 }
 
+#workspaces button.focused {
+  background: @efBgGreen;
+  border-radius: 10px;
+}
 
 #temperature.critical,
-#pulseaudio.muted {
-  color: #514045;
-  padding-top: 0;
+#pulseaudio.input.source-muted,
+#pulseaudio.output.muted {
+  background-color: @efBgRed;
 }
 
-
 #clock{
-  color: #d3c6aa;
+  color: @efFg;
 }
 
 #battery.charging {
-    color:  #d3c6aa;
-    background-color: #425047;
+    background-color: @efBgGreen;
 }
 
 #battery.warning:not(.charging) {
-    background-color: #4d4c43;
-    color: black;
+    background-color: @efBgYellow;
 }
 
 #battery.critical:not(.charging) {
-    background-color: #514045;
-    color: #d3c6aa;
+    background-color: @efBgRed;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -131,10 +126,9 @@ window#waybar {
     animation-direction: alternate;
 }
 
-
 @keyframes blink {
     to {
-        background-color:#2d353b;
-        color:#d3c6aa;
+        background-color: @efBg0;
+        color: @efFg;
     }
 }
