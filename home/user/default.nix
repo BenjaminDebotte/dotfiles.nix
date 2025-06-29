@@ -8,7 +8,6 @@
         ./programs.nix
         ./environment.nix
         ./neovim.nix
-        ./hyprland.nix
     ];
 
   nixpkgs = {
