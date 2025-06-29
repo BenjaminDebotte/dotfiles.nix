@@ -1,9 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   
 
   home.packages = [
+    
+    pkgs-unstable.hyprlandPlugins.hyprsplit
+
     # Dev stuff
     pkgs.gcc
     pkgs.go
