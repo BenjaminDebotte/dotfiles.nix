@@ -46,7 +46,7 @@
     pkgs.zsh-powerlevel10k
     pkgs.ethtool
     pkgs.viewnior
-    pkgs.catppuccin-cursors.macchiatoBlue
+    pkgs.catppuccin-cursors.macchiatoGreen
     pkgs.catppuccin-gtk
     pkgs.papirus-folders
   ];
