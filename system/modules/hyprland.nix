@@ -19,6 +19,10 @@
     wlogout
     wl-clipboard
     rofi
+    rofi-bluetooth
+    rofi-pass-wayland
+    rofi-file-browser
+    pinentry-rofi
     waybar
   ];
 }

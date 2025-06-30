@@ -28,6 +28,7 @@
       agent = {
         enable = true;
         enableSSHSupport = true;
+        pinentryPackage = pkgs.pinentry-rofi;
       };
     };
 

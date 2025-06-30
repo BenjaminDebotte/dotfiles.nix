@@ -15,6 +15,7 @@
     libsForQt5.qt5.qtsvg
     neofetch
     neovim
+    pass-wayland
     ripgrep
     tldr
     unzip

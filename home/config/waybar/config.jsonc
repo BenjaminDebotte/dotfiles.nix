@@ -6,6 +6,7 @@
   "exclusive": true,
   "passthrough": false,
   "gtk-layer-shell": true,
+  "margin-bottom": 10,
   "modules-left": [
     "hyprland/workspaces"
   ],

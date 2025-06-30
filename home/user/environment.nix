@@ -10,7 +10,6 @@ with lib; let
 in
 {
   home.sessionVariables = {
-
 	     BROWSER = "google-chrome";
 	     CLUTTER_BACKEND = "wayland";
 	     EDITOR = "nvim";
@@ -18,7 +17,6 @@ in
 	     MOZ_ENABLE_WAYLAND = "1";
 	     NIXOS_OZONE_WL = "1";
 	     NIXOS_XDG_OPEN_USE_PORTAL = "1";
-       HYPR_PLUGIN_DIR = hyprPluginDir;
 	     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 	     QT_QPA_PLATFORM = "wayland-egl";
 	     QT_QPA_PLATFORMTHEME = "gtk3";
@@ -38,6 +36,8 @@ in
 	     XDG_SESSION_TYPE = "wayland";
        GTK_CSD = "0";
        GTK_THEME="Catppuccin-Macchiato-Compact-Blue-Dark";
+       HYPR_PLUGIN_DIR = hyprPluginDir;
+       PASSWORD_STORE_DIR="$HOME/.local/share/password-store";
        XCURSOR_SIZE = "32";
   };
 }
