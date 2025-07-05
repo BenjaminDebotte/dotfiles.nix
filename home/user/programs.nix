@@ -12,7 +12,7 @@
     extraConfig = ''
       IdentityFile ~/.ssh/id_ed25519
       User bdebotte
-    '';
+      '';
     matchBlocks = {
       "github.com" = {
         hostname = "github.com";
@@ -24,6 +24,8 @@
 
 
   programs.git.signing.format = "openpgp";
+
+
 
   services.ssh-agent.enable = true;
 

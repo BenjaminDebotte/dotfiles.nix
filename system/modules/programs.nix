@@ -4,6 +4,14 @@
   programs.gamemode.enable = true;
   programs.gamescope.enable = true;
 
+  services.printing.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   xdg.portal = {
     enable = true;
     wlr.enable = false;
