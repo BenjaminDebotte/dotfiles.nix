@@ -22,6 +22,7 @@
     };
   };
 
+
   programs.git.signing.format = "openpgp";
 
   services.ssh-agent.enable = true;

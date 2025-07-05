@@ -1,6 +1,8 @@
 { config, pkgs, ... }: 
 
 {
+  programs.gamemode.enable = true;
+  programs.gamescope.enable = true;
 
   xdg.portal = {
     enable = true;
