@@ -6,6 +6,7 @@
     bat
     btop
     eza
+    ethtool
     fzf
     git
     gnumake
