@@ -16,6 +16,7 @@ let
     rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/";
     fullRebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/ && home-manager switch --flake ~/.dotfiles/ -b backup";
     homeRebuild = "home-manager switch --flake ~/.dotfiles/ -b backup";
+    update = "sudo nixos-rebuild switch --flake ~/.dotfiles/ --upgrade"
 };
 in
 {
