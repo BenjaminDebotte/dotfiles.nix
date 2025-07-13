@@ -43,7 +43,7 @@
         inherit inputs;
       };
     };
-
+    
     homeConfigurations = {
       bdebotte = home-manager.lib.homeManagerConfiguration
       {

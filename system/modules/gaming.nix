@@ -3,6 +3,8 @@
 # NOTE: Pour plus tard ? https://github.com/Jovian-Experiments/Jovian-NixOS/blob/development/modules/steam/steam.nix
 
 {
+  programs.gamemode.enable = true;
+
   nix = {
     settings = {
       warn-dirty = false;

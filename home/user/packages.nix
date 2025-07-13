@@ -1,7 +1,7 @@
 { pkgs, pkgs-unstable, ... }:
 
 {
-
+  
 
   home.packages = [
 
@@ -22,6 +22,7 @@
       pkgs.lazygit
       pkgs.imagemagick
       pkgs.usbutils
+
 
 # Language Servers
 # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
