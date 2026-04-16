@@ -20,27 +20,51 @@
 
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
+      inputs.hyprland.follows = "hyprland"; 
     };
-
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, split-monitor-workspaces,  ... }@inputs:
     let 
     lib = nixpkgs.lib;
     system = "x86_64-linux";
-    pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; }; # Despite it being defined in system/modules
+    pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; }; 
     pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
   in
   {
-    nixosConfigurations.nixos = lib.nixosSystem {
-      inherit system;
-      modules = [
-        ./system/configuration.nix 
+    nixosConfigurations = {
+      # Ta configuration actuelle
+      nixos = lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./system/configuration.nix 
+        ];
+        specialArgs = {
+          inherit inputs;
+        };
+      };
 
-      ];
-      specialArgs = {
-        inherit inputs;
+      # NOUVEAU : La configuration pour créer ta clé USB bootable
+      iso = lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          # Le module magique qui transforme cette config en ISO
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+
+          # Quelques configurations utiles pour ton Live USB
+          ({ pkgs, ... }: {
+            # Activer les flakes par défaut sur l'ISO pour pouvoir installer directement
+            nix.settings.experimental-features = [ "nix-command" "flakes" ];
+            
+            # Outils indispensables pour l'installation sur le nouveau laptop
+            environment.systemPackages = with pkgs; [ 
+              git 
+              neovim 
+              parted 
+            ];
+          })
+        ];
       };
     };
     
