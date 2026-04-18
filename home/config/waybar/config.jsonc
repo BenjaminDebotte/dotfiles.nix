@@ -14,14 +14,15 @@
   "modules-right": [
     "tray",
     "custom/updates",
+    "bluetooth",
     "clock",
     "pulseaudio",
     "pulseaudio#microphone",
     "temperature",
     "cpu",
-    "memory"
+    "memory",
+    "battery"
   ],
-
   "hyprland/window": {
     "format": "{title}"
   },
@@ -34,22 +35,42 @@
       "DP-6": [ 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
     }
   },
+  "battery": {
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "⚡ {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "bluetooth": {
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "blueman-manager"
+  },
   "cpu": {
     "interval": 10,
-    "format": "{}% ",
+    "format": "{}% ",
     "max-length": 10
   },
   "memory": {
     "interval": 30,
-    "format": "{}% ",
+    "format": "{}% ",
     "max-length": 10
   },
   "temperature": {
     // "thermal-zone": 2,
     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "critical-threshold": 80,
-    "format-critical": "{temperatureC}°C  !!",
-    "format": "{temperatureC}°C "
+    "format-critical": "{temperatureC}°C  !!",
+    "format": "{temperatureC}°C "
   },
   "tray": {
     "icon-size": 16,
@@ -64,19 +85,19 @@
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "tooltip": false,
-    "format-muted": " Muted",
+    "format-muted": " Muted",
     "on-click": "pamixer -t",
     "on-scroll-up": "pamixer -i 5",
     "on-scroll-down": "pamixer -d 5",
     "scroll-step": 5,
     "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["", "", ""]
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
     }
   },
   "pulseaudio#microphone": {
