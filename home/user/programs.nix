@@ -36,35 +36,41 @@
   programs.firefox = {
     enable = true;
     package = pkgs.firefox.override {cfg.enableTridactylNative = true;};
-
     profiles.bdebotte = {
       extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
         darkreader
-          tridactyl
-          facebook-container
-          i-dont-care-about-cookies
-          proton-pass
-          to-google-translate
-          ublock-origin
-          view-image
-          youtube-shorts-block
+        tridactyl
+        facebook-container
+        i-dont-care-about-cookies
+        proton-pass
+        to-google-translate
+        ublock-origin
+        view-image
+        youtube-shorts-block
       ];
       settings = {
-# Performance settings
-        "gfx.webrender.all" = true; # Force enable GPU acceleration
+        # Performance settings
+        "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
-        "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
+        "widget.dmabuf.force-enabled" = true;
 
-# Keep the reader button enabled at all times; really don't
-# care if it doesn't work 20% of the time, most websites are
-# crap and unreadable without this
+        # Reader mode
         "reader.parse-on-load.force-enabled" = true;
 
-# Hide the "sharing indicator", it's especially annoying
-# with tiling WMs on wayland
+        # WebRTC sharing indicator (annoying with tiling WMs)
         "privacy.webrtc.legacyGlobalIndicator" = false;
 
-# Actual settings
+        # Mozilla Account & Sync
+        "identity.fxaccounts.enabled" = true;          # <-- modifié
+        "services.sync.engine.addons" = true;           # <-- ajouté
+        "services.sync.engine.bookmarks" = true;        # <-- ajouté
+        "services.sync.engine.history" = true;          # <-- ajouté
+        "services.sync.engine.passwords" = true;        # <-- ajouté
+        "services.sync.engine.prefs" = false;           # <-- ajouté (évite que la synchro écrase tes prefs NixOS)
+        "services.sync.engine.tabs" = true;             # <-- ajouté
+        "services.sync.engine.creditcards" = false;     # <-- ajouté
+
+        # General settings
         "app.shield.optoutstudies.enabled" = false;
         "app.update.auto" = false;
         "browser.bookmarks.restore_default_bookmarks" = false;
@@ -72,15 +78,12 @@
         "browser.ctrlTab.recentlyUsedOrder" = false;
         "browser.discovery.enabled" = false;
         "browser.laterrun.enabled" = false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" =
-          false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
-          false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
         "browser.newtabpage.activity-stream.feeds.snippets" = false;
         "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = "";
         "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines" = "";
-        "browser.newtabpage.activity-stream.section.highlights.includePocket" =
-          false;
+        "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
         "browser.newtabpage.activity-stream.showSponsored" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.pinned" = false;
@@ -98,7 +101,6 @@
         "extensions.getAddons.showPane" = false;
         "extensions.htmlaboutaddons.recommendations.enabled" = false;
         "extensions.pocket.enabled" = false;
-        "identity.fxaccounts.enabled" = false;
         "privacy.trackingprotection.enabled" = true;
         "privacy.trackingprotection.socialtracking.enabled" = true;
       };
