@@ -10,7 +10,7 @@ with lib; let
 in
 {
   home.sessionVariables = {
-	     BROWSER = "google-chrome";
+	     BROWSER = "firefox";
 	     CLUTTER_BACKEND = "wayland";
 	     EDITOR = "nvim";
 	     GTK_USE_PORTAL = "1";
