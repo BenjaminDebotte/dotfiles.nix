@@ -1,34 +1,31 @@
-@define-color efFg             #d3c6aa;
-@define-color efRed            #e67e80;
-@define-color efOrange         #e69875;
-@define-color efYellow         #dbbc7f;
-@define-color efGreen          #a7c080;
-@define-color efAqua           #83c092;
-@define-color efBlue           #7fbbb3;
-@define-color efPurple         #d699b6;
-@define-color efGray0          #7a8478;
-@define-color efGray1          #859289;
-@define-color efGray2          #9da9a0;
-@define-color efStatusline1    #a7c080;
-@define-color efStatusline2    #d3c6aa;
-@define-color efStatusline3    #e67e80;
-@define-color efBgDim          #232a2e;
-@define-color efBg0            #2d353b;
-@define-color efBg1            #343f44;
-@define-color efBg2            #3d484d;
-@define-color efBg3            #475258;
-@define-color efBg4            #4f585e;
-@define-color efBg5            #56635f;
-@define-color efBgVisual       #543a48;
-@define-color efBgRed          #514045;
-@define-color efBgGreen        #425047;
-@define-color efBgBlue         #3a515d;
-@define-color efBgYellow       #4d4c43;
+@define-color efFg          #d3c6aa;
+@define-color efRed         #e67e80;
+@define-color efOrange      #e69875;
+@define-color efYellow      #dbbc7f;
+@define-color efGreen       #a7c080;
+@define-color efAqua        #83c092;
+@define-color efBlue        #7fbbb3;
+@define-color efPurple      #d699b6;
+@define-color efGray0       #7a8478;
+@define-color efGray1       #859289;
+@define-color efGray2       #9da9a0;
+@define-color efBgDim       #232a2e;
+@define-color efBg0         #2d353b;
+@define-color efBg1         #343f44;
+@define-color efBg2         #3d484d;
+@define-color efBg3         #475258;
+@define-color efBg4         #4f585e;
+@define-color efBg5         #56635f;
+@define-color efBgVisual    #543a48;
+@define-color efBgRed       #514045;
+@define-color efBgGreen     #425047;
+@define-color efBgBlue      #3a515d;
+@define-color efBgYellow    #4d4c43;
 
 * {
     border: none;
     font-size: 14px;
-    font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF";
+    font-family: "JetBrainsMono Nerd Font", "JetBrainsMono NF";
     min-height: 25px;
     color: @efFg;
 }
@@ -44,48 +41,112 @@ window#waybar {
     margin-top: 2px;
     background: transparent;
 }
-.modules-right,
-.modules-left {
-    padding: 0 10px;
+
+.modules-right { padding: 0 10px; margin-right: 20px; }
+.modules-left  { padding: 0 10px; margin-left: 20px; }
+
+/* ── workspaces ── */
+
+#workspaces button {
+    padding: 0 6px;
+    color: @efGray2;
 }
 
-.modules-right { margin-right: 20px; }
-.modules-left  { margin-left: 20px;  }
-
-#workspaces button.active {
-    background-color: @efBg2;
-}
-
+#workspaces button.active,
 #workspaces button.focused {
     background: @efBg2;
     border-radius: 10px;
+    color: @efFg;
 }
+
+/* ── window title ── */
 
 #window {
-  padding: 0 20px;
+    padding: 0 20px;
 }
 
-#temperature.critical,
-#pulseaudio.input.source-muted,
-#pulseaudio.output.muted {
-    background-color: @efBgRed;
+/* ── shared module base ── */
+
+#clock,
+#cpu,
+#memory,
+#temperature,
+#pulseaudio,
+#battery,
+#bluetooth,
+#tray,
+#custom-updates,
+#window,
+#workspaces {
+    background-color: @efBg1;
+    border: 2px solid @efBg2;
+    border-radius: 10px;
+    padding: 0 10px;
+    color: @efFg;
+    min-width: 60px;
+    transition: border-color 0.2s ease-in-out,
+                background-color 0.2s ease-in-out;
 }
+
+/* clock gets a slightly stronger border to stand out as the anchor */
+#clock {
+    border-color: @efBg3;
+    min-width: 80px;
+}
+
+/* ── hover ── */
+
+#clock:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#pulseaudio:hover,
+#battery:hover,
+#bluetooth:hover,
+#tray:hover,
+#custom-updates:hover,
+#window:hover,
+#workspaces:hover {
+    border-color: @efFg;
+    background-color: @efBg4;
+}
+
+/* ── temperature ── */
+
+#temperature.critical {
+    background-color: @efBgRed;
+    border-color: @efRed;
+}
+
+/* ── pulseaudio mute states ── */
+
+#pulseaudio.muted,
+#pulseaudio.source-muted {
+    background-color: @efBgRed;
+    border-color: @efRed;
+}
+
+/* ── battery states ── */
 
 #battery.charging {
     background-color: @efBgGreen;
+    border-color: @efGreen;
+}
+
+#battery.plugged {
+    background-color: @efBgGreen;
+    border-color: @efGreen;
 }
 
 #battery.warning:not(.charging) {
     background-color: @efBgYellow;
+    border-color: @efYellow;
 }
 
 #battery.critical:not(.charging) {
     background-color: @efBgRed;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    border-color: @efRed;
+    animation: blink 0.5s linear infinite alternate;
 }
 
 @keyframes blink {
@@ -95,82 +156,12 @@ window#waybar {
     }
 }
 
-/* MODULES STYLE */
+/* ── bluetooth ── */
 
-#clock,
-#cpu,
-#memory,
-#network,
-#pulseaudio,
-#battery,
-#tray,
-#custom-clipboard,
-#custom-colorpicker,
-#custom-powerDraw,
-#bluetooth,
-#disk,
-#backlight,
-#temperature,
-#custom-weather,
-#idle_inhibitor,
-#jack,
-#window,
-#workspaces {
-    transition: border-color 0.2s ease-in-out;
+#bluetooth.connected {
+    border-color: @efAqua;
 }
 
-#clock {
-    background-color: @efBg1;
-    border: 2px solid @efBg2;
-    color: @efFg;
-    min-width: 80px;
-}
-
-#cpu,
-#memory,
-#network,
-#pulseaudio,
-#battery,
-#tray,
-#custom-clipboard,
-#custom-colorpicker,
-#custom-powerDraw,
-#bluetooth,
-#disk,
-#backlight,
-#temperature,
-#custom-weather,
-#idle_inhibitor,
-#jack,
-#window,
-#workspaces {
-    background-color: @efBg1;
-    border: 2px solid @efBg2;
-    color: @efFg;
-    min-width: 80px;
-}
-
-
-
-#clock:hover,
-#cpu:hover,
-#memory:hover,
-#network:hover,
-#pulseaudio:hover,
-#battery:hover,
-#tray:hover,
-#custom-clipboard:hover,
-#custom-colorpicker:hover,
-#custom-powerDraw:hover,
-#bluetooth:hover,
-#disk:hover,
-#backlight:hover,
-#temperature:hover,
-#custom-weather:hover,
-#idle_inhibitor:hover,
-#jack:hover,
-#window:hover,
-#workspaces:hover {
-    border-color: @efFg;
-    background-color: @efBg4;
+#bluetooth.disabled {
+    color: @efGray1;
 }
