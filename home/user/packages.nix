@@ -8,6 +8,8 @@
 # Hyprland
     pkgs-unstable.hyprlandPlugins.hyprsplit
 
+    pkgs.brightnessctl
+
 # Network
       pkgs.protonvpn-gui
       pkgs.python313Packages.proton-vpn-network-manager

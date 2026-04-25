@@ -1,3 +1,4 @@
+# Notification Daemon for Wayland
 sort=-time
 layer=overlay
 width=300

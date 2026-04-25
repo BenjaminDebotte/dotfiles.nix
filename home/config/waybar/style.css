@@ -77,6 +77,8 @@ window#waybar {
 #tray,
 #custom-updates,
 #window,
+#network,
+#backlight,
 #workspaces {
     background-color: @efBg1;
     border: 2px solid @efBg2;
@@ -104,6 +106,8 @@ window#waybar {
 #battery:hover,
 #bluetooth:hover,
 #tray:hover,
+#network:hover,
+#backlight:hover,
 #custom-updates:hover,
 #window:hover,
 #workspaces:hover {

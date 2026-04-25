@@ -13,6 +13,8 @@
     "tray",
     "custom/updates",
     "bluetooth",
+    "network",
+    "backlight",
     "clock",
     "pulseaudio",
     "pulseaudio#microphone",
@@ -108,13 +110,19 @@
     }
   },
 
-  "pulseaudio#microphone": {
-    "format": "{format_source}",
-    "format-source": "󰍬 {volume}%",
-    "format-source-muted": "  ",
-    "on-click": "pamixer --default-source -t",
-    "on-scroll-up": "pamixer --default-source -i 5",
-    "on-scroll-down": "pamixer --default-source -d 5",
-    "scroll-step": 5
-  }
+  "network": {
+    "format-wifi": "󰖩 {signalStrength}%",
+    "format-ethernet": "󰈁 ",
+    "format-disconnected": "󰖪 ",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip-format-wifi": "{signalStrength}%\n{ipaddr}",
+    "on-click": "kitty -e nmtui"
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "󰳲 {percent}%",
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl -n 1 set 5%-"
+  },
 }

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  documentation.nixos.enable = false;
+  documentation.nixos.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 

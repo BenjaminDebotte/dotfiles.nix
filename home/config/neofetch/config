@@ -14,10 +14,10 @@ print_info() {
 kernel_shorthand="off"
 
 # Shorten the output of the distro function
-distro_shorthand="off"
+distro_shorthand="true"
 
 # Show/Hide OS Architecture.
-os_arch="off"
+os_arch="true"
 
 # Shorten the output of the uptime function
 uptime_shorthand="on"
@@ -33,7 +33,7 @@ memory_unit="mib"
 # on:   '998 (pacman), 8 (flatpak), 4 (snap)'
 # tiny: '908 (pacman, flatpak, snap)'
 # off:  '908'
-package_managers="on"
+package_managers="tiny"
 
 # Show the path to $SHELL
 # Example:
