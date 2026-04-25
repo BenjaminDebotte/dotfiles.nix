@@ -13,15 +13,14 @@
     "tray",
     "custom/updates",
     "bluetooth",
-    "network",
     "backlight",
-    "clock",
-    "pulseaudio",
-    "pulseaudio#microphone",
     "temperature",
     "cpu",
     "memory",
-    "battery"
+    "pulseaudio",
+    "network",
+    "battery",
+    "clock",
   ],
 
   "hyprland/window": {
@@ -123,6 +122,6 @@
     "device": "intel_backlight",
     "format": "󰳲 {percent}%",
     "on-scroll-up": "brightnessctl set +5%",
-    "on-scroll-down": "brightnessctl -n 1 set 5%-"
+    "on-scroll-down": "brightnessctl -n1 set 5%-"
   },
 }
