@@ -35,16 +35,56 @@
       url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland"; 
     };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, split-monitor-workspaces,  ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, split-monitor-workspaces, treefmt-nix, git-hooks-nix, ... }@inputs:
     let 
     lib = nixpkgs.lib;
     system = "x86_64-linux";
-    pkgs = import nixpkgs { system = "x86_64-linux"; config.allowUnfree = true; }; 
+    pkgs = import nixpkgs { inherit system; config.allowUnfree = true; }; 
     pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+
+    # Eval treefmt
+    treefmtEval = treefmt-nix.lib.evalModule pkgs {
+      projectRootFile = "flake.nix";
+      programs.nixfmt.enable = true;
+      programs.nixfmt.package = pkgs.nixfmt-rfc-style;
+      # programs.shfmt.enable = true; # Bash
+      # programs.stylua.enable = true; # Lua
+      # programs.prettier.enable = true; # Markdown
+    };
+
+    # Eval pre-commit hooks
+    pre-commit-check = git-hooks-nix.lib.${system}.run {
+      src = ./.;
+      hooks = {
+        treefmt = {
+          enable = true;
+          package = treefmtEval.config.build.wrapper;
+        };
+        statix.enable = true;
+        deadnix.enable = true;
+      };
+    };
   in
   {
+    formatter.${system} = treefmtEval.config.build.wrapper;
+    checks.${system}.pre-commit-check = pre-commit-check;
+    devShells.${system}.default = pkgs.mkShell {
+      inherit (pre-commit-check) shellHook;
+      buildInputs = pre-commit-check.enabledPackages;
+    };
+
     nixosConfigurations = {
       # Ta configuration actuelle
       nixos = lib.nixosSystem {
