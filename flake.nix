@@ -1,12 +1,25 @@
 {
   description = "bdebotte NixOS";
 
+  # Binary cache
+  nixConfig = {
+    extra-substituters = [
+      "https://pi.cachix.org"
+      "https://nix-community.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "pi.cachix.org-1:lGeoGJaZ5ZDabuRzkcD5EBTNnDM4HJ1vqeOxlWk1Flk="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    pi.url = "github:lukasl-dev/pi.nix";
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -72,7 +85,10 @@
       bdebotte = home-manager.lib.homeManagerConfiguration
       {
           inherit pkgs;
-          modules = [ ./home ];
+          modules = [ 
+            inputs.pi.homeModules.default
+            ./home
+          ];
           extraSpecialArgs = {
             inherit inputs;
             inherit pkgs;

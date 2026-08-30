@@ -22,10 +22,11 @@
     };
   };
 
+  programs.pi.coding-agent = {
+    enable = true;
+  };
 
   programs.git.signing.format = "openpgp";
-
-
 
   services.ssh-agent.enable = true;
 
