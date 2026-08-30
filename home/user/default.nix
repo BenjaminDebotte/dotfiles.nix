@@ -8,6 +8,7 @@
         ./programs.nix
         ./environment.nix
         ./neovim.nix
+        ./ai.nix
     ];
 
   nixpkgs = {
