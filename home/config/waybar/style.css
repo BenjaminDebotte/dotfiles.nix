@@ -45,18 +45,29 @@ window#waybar {
 .modules-right { padding: 0 10px; margin-right: 20px; }
 .modules-left  { padding: 0 10px; margin-left: 20px; }
 
-/* ── workspaces ── */
+/* ── workspaces & tags ── */
 
-#workspaces button {
+#workspaces button,
+#tags button {
     padding: 0 6px;
     color: @efGray2;
 }
 
 #workspaces button.active,
-#workspaces button.focused {
+#workspaces button.focused,
+#tags button.focused {
     background: @efBg2;
     border-radius: 10px;
     color: @efFg;
+}
+
+#tags button.occupied {
+    color: @efBlue;
+}
+
+#tags button.urgent {
+    background-color: @efBgRed;
+    color: @efRed;
 }
 
 /* ── window title ── */
@@ -79,7 +90,9 @@ window#waybar {
 #window,
 #network,
 #backlight,
-#workspaces {
+#workspaces,
+#tags,
+#layout {
     background-color: @efBg1;
     border: 2px solid @efBg2;
     border-radius: 10px;
@@ -110,7 +123,9 @@ window#waybar {
 #backlight:hover,
 #custom-updates:hover,
 #window:hover,
-#workspaces:hover {
+#workspaces:hover,
+#tags:hover,
+#layout:hover {
     border-color: @efFg;
     background-color: @efBg4;
 }
