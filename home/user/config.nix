@@ -15,6 +15,10 @@ in
       source = "${configDir}/river/init";
       executable = true;
     };
+    ".config/river/scratchpad.sh" = {
+      source = "${configDir}/river/scratchpad.sh";
+      executable = true;
+    };
     ".config/kanshi".source = "${configDir}/kanshi";
     ".config/wlogout".source = "${configDir}/wlogout";
     ".config/waybar".source = "${configDir}/waybar";

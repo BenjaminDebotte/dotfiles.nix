@@ -1,9 +1,13 @@
 #!/bin/sh
 
 # ── Environment & DBus / Systemd Activation ───────────────────────────────────
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
-systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-systemctl --user start polkit-gnome-authentication-agent-1
+export XDG_CURRENT_DESKTOP=river
+export XDG_SESSION_DESKTOP=river
+export XDG_SESSION_TYPE=wayland
+
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE
+systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE
+systemctl --user start polkit-gnome-authentication-agent-1 2>/dev/null || true
 
 # ── Input Configuration ───────────────────────────────────────────────────────
 # Keyboard layout with CapsLock mapped to Super
@@ -28,54 +32,86 @@ riverctl attach-mode top
 # ── Terminal & Applications ───────────────────────────────────────────────────
 riverctl map normal Super Return spawn "kitty"
 riverctl map normal Super w spawn "firefox"
+riverctl map normal Super W spawn "firefox"
 riverctl map normal Super+Shift W spawn "min"
+riverctl map normal Super+Shift w spawn "min"
+riverctl map normal Super r spawn "kitty -e yazi"
 riverctl map normal Super R spawn "kitty -e yazi"
 riverctl map normal Super+Shift R spawn "kitty -e htop"
+riverctl map normal Super+Shift r spawn "kitty -e htop"
+riverctl map normal Super e spawn "kitty -e neomutt"
 riverctl map normal Super E spawn "kitty -e neomutt"
+riverctl map normal Super n spawn "kitty -e nvim -c VimwikiIndex"
 riverctl map normal Super N spawn "kitty -e nvim -c VimwikiIndex"
 riverctl map normal Super+Shift N spawn "kitty -e newsboat"
+riverctl map normal Super+Shift n spawn "kitty -e newsboat"
+riverctl map normal Super m spawn "kitty -e ncmpcpp"
 riverctl map normal Super M spawn "kitty -e ncmpcpp"
+riverctl map normal Super c spawn "kitty -e profanity"
 riverctl map normal Super C spawn "kitty -e profanity"
 riverctl map normal Super grave spawn "code"
 riverctl map normal Super BackSpace spawn "wlogout --protocol layer-shell"
 riverctl map normal Super+Shift Q spawn "wlogout --protocol layer-shell"
+riverctl map normal Super+Shift q spawn "wlogout --protocol layer-shell"
 
 # ── Launchers & Password Store ────────────────────────────────────────────────
+riverctl map normal Super d spawn "rofi -show drun"
 riverctl map normal Super D spawn "rofi -show drun"
 riverctl map normal Super+Shift D spawn "rofi -show run"
+riverctl map normal Super+Shift d spawn "rofi -show run"
+riverctl map normal Super p spawn "rofi-pass --root $HOME/.local/share/password-store"
 riverctl map normal Super P spawn "rofi-pass --root $HOME/.local/share/password-store"
 
 # ── Window Management ─────────────────────────────────────────────────────────
+riverctl map normal Super q close
 riverctl map normal Super Q close
 riverctl map normal Super Space zoom
 riverctl map normal Super+Shift Space toggle-float
+riverctl map normal Super v toggle-float
 riverctl map normal Super V toggle-float
+riverctl map normal Super f toggle-fullscreen
 riverctl map normal Super F toggle-fullscreen
 
 # Focus stack (vim keys)
+riverctl map normal Super j focus-view next
 riverctl map normal Super J focus-view next
+riverctl map normal Super k focus-view previous
 riverctl map normal Super K focus-view previous
 
 # Swap stack (vim keys)
 riverctl map normal Super+Shift J swap next
+riverctl map normal Super+Shift j swap next
 riverctl map normal Super+Shift K swap previous
+riverctl map normal Super+Shift k swap previous
 
 # Master layout adjustments (rivertile)
+riverctl map normal Super h send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super l send-layout-cmd rivertile "main-ratio +0.05"
 riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal Super i send-layout-cmd rivertile "main-count +1"
 riverctl map normal Super I send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super d send-layout-cmd rivertile "main-count -1"
 riverctl map normal Super D send-layout-cmd rivertile "main-count -1"
 
 # Master location / orientation
 riverctl map normal Super+Alt H send-layout-cmd rivertile "main-location left"
+riverctl map normal Super+Alt h send-layout-cmd rivertile "main-location left"
 riverctl map normal Super+Alt L send-layout-cmd rivertile "main-location right"
+riverctl map normal Super+Alt l send-layout-cmd rivertile "main-location right"
 riverctl map normal Super+Alt K send-layout-cmd rivertile "main-location top"
+riverctl map normal Super+Alt k send-layout-cmd rivertile "main-location top"
 riverctl map normal Super+Alt J send-layout-cmd rivertile "main-location bottom"
+riverctl map normal Super+Alt j send-layout-cmd rivertile "main-location bottom"
 
 # Multi-monitor / Output navigation
+riverctl map normal Super period focus-output next
 riverctl map normal Super Period focus-output next
+riverctl map normal Super comma focus-output previous
 riverctl map normal Super Comma focus-output previous
+riverctl map normal Super+Shift period send-to-output next
 riverctl map normal Super+Shift Period send-to-output next
+riverctl map normal Super+Shift comma send-to-output previous
 riverctl map normal Super+Shift Comma send-to-output previous
 
 # Mouse window control
@@ -105,21 +141,22 @@ all_tags=$(((1 << 9) - 1))
 riverctl map normal Super 0 set-focused-tags "$all_tags"
 riverctl map normal Super+Shift 0 set-view-tags "$all_tags"
 
-# Scratchpad terminal (spterm) mapped to tag 32 (1 << 31)
+# ── Scratchpad / Hover Shell (spterm on tag 32) ──────────────────────────────
 scratch_tag=$((1 << 31))
-riverctl map normal Super+Shift Return toggle-focused-tags "$scratch_tag"
+riverctl map normal Super+Shift Return spawn "$HOME/.config/river/scratchpad.sh"
 riverctl map normal Super+Control Return set-view-tags "$scratch_tag"
 
 # ── Audio & Volume Controls (pamixer) ─────────────────────────────────────────
 riverctl map normal None XF86AudioRaiseVolume spawn "pamixer --allow-boost -i 3"
 riverctl map normal None XF86AudioLowerVolume spawn "pamixer --allow-boost -d 3"
 riverctl map normal None XF86AudioMute spawn "pamixer -t"
-riverctl map normal None XF86AudioMicMute spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+riverctl map normal None XF86AudioMicMute spawn "pamixer --default-source -t"
 riverctl map normal Super minus spawn "pamixer --allow-boost -d 5"
 riverctl map normal Super+Shift minus spawn "pamixer --allow-boost -d 15"
 riverctl map normal Super equal spawn "pamixer --allow-boost -i 5"
 riverctl map normal Super+Shift equal spawn "pamixer --allow-boost -i 15"
 riverctl map normal Super+Shift M spawn "pamixer -t"
+riverctl map normal Super+Shift m spawn "pamixer -t"
 
 # ── Media Player (MPD / mpc) ──────────────────────────────────────────────────
 riverctl map normal None XF86AudioPlay spawn "mpc play"
@@ -150,6 +187,13 @@ riverctl rule-add ssd
 # Default layout generator
 riverctl default-layout rivertile
 
+# Clean up any stale instances before starting daemons
+pkill rivertile 2>/dev/null || true
+pkill kanshi 2>/dev/null || true
+pkill swaybg 2>/dev/null || true
+pkill mako 2>/dev/null || true
+pkill waybar 2>/dev/null || true
+
 # Spawn rivertile master-and-stack layout generator
 rivertile -view-padding 4 -outer-padding 4 -main-ratio 0.55 &
 
@@ -159,8 +203,10 @@ kanshi &
 # Wallpaper
 swaybg -i "$HOME/.config/wallpapers/wall.jpg" -m fill &
 
-# Notifications & Status bar
+# Notifications
 mako &
+
+# Status bar (Waybar)
 waybar -c "$HOME/.config/waybar/river-config.jsonc" &
 
 # Idle management & screen lock

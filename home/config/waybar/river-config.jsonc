@@ -11,7 +11,6 @@
   "modules-center": ["river/window"],
   "modules-right": [
     "tray",
-    "custom/updates",
     "bluetooth",
     "backlight",
     "temperature",

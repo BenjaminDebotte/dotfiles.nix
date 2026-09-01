@@ -51,13 +51,17 @@ window#waybar {
 #tags button {
     padding: 0 6px;
     color: @efGray2;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    margin: 2px 1px;
 }
 
 #workspaces button.active,
 #workspaces button.focused,
 #tags button.focused {
     background: @efBg2;
-    border-radius: 10px;
+    border-radius: 8px;
     color: @efFg;
 }
 
@@ -65,9 +69,22 @@ window#waybar {
     color: @efBlue;
 }
 
+#tags button.occupied.focused {
+    background: @efBg2;
+    color: @efGreen;
+}
+
 #tags button.urgent {
     background-color: @efBgRed;
     color: @efRed;
+}
+
+/* ── layout indicator ── */
+#layout {
+    font-weight: bold;
+    color: @efAqua;
+    min-width: 45px;
+    padding: 0 8px;
 }
 
 /* ── window title ── */
