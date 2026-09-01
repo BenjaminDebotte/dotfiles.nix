@@ -1,0 +1,167 @@
+#!/bin/sh
+
+# ── Environment & DBus / Systemd Activation ───────────────────────────────────
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+systemctl --user start polkit-gnome-authentication-agent-1
+
+# ── Input Configuration ───────────────────────────────────────────────────────
+# Keyboard layout with CapsLock mapped to Super
+riverctl keyboard-layout -options "caps:super" "us"
+
+# Touchpad configuration
+riverctl input "type:touchpad" tap enabled
+riverctl input "type:touchpad" natural-scroll disabled
+riverctl input "type:touchpad" accel-profile adaptive
+
+# ── Theme & Aesthetics (Everforest Palette) ───────────────────────────────────
+riverctl border-color-focused "0xa7c080"
+riverctl border-color-unfocused "0x343f44"
+riverctl border-color-urgent "0xe67e80"
+riverctl border-width 2
+
+# Focus behavior
+riverctl focus-follows-cursor normal
+riverctl set-cursor-warp on-focus-change
+riverctl attach-mode top
+
+# ── Terminal & Applications ───────────────────────────────────────────────────
+riverctl map normal Super Return spawn "kitty"
+riverctl map normal Super w spawn "firefox"
+riverctl map normal Super+Shift W spawn "min"
+riverctl map normal Super R spawn "kitty -e yazi"
+riverctl map normal Super+Shift R spawn "kitty -e htop"
+riverctl map normal Super E spawn "kitty -e neomutt"
+riverctl map normal Super N spawn "kitty -e nvim -c VimwikiIndex"
+riverctl map normal Super+Shift N spawn "kitty -e newsboat"
+riverctl map normal Super M spawn "kitty -e ncmpcpp"
+riverctl map normal Super C spawn "kitty -e profanity"
+riverctl map normal Super grave spawn "code"
+riverctl map normal Super BackSpace spawn "wlogout --protocol layer-shell"
+riverctl map normal Super+Shift Q spawn "wlogout --protocol layer-shell"
+
+# ── Launchers & Password Store ────────────────────────────────────────────────
+riverctl map normal Super D spawn "rofi -show drun"
+riverctl map normal Super+Shift D spawn "rofi -show run"
+riverctl map normal Super P spawn "rofi-pass --root $HOME/.local/share/password-store"
+
+# ── Window Management ─────────────────────────────────────────────────────────
+riverctl map normal Super Q close
+riverctl map normal Super Space zoom
+riverctl map normal Super+Shift Space toggle-float
+riverctl map normal Super V toggle-float
+riverctl map normal Super F toggle-fullscreen
+
+# Focus stack (vim keys)
+riverctl map normal Super J focus-view next
+riverctl map normal Super K focus-view previous
+
+# Swap stack (vim keys)
+riverctl map normal Super+Shift J swap next
+riverctl map normal Super+Shift K swap previous
+
+# Master layout adjustments (rivertile)
+riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal Super I send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super D send-layout-cmd rivertile "main-count -1"
+
+# Master location / orientation
+riverctl map normal Super+Alt H send-layout-cmd rivertile "main-location left"
+riverctl map normal Super+Alt L send-layout-cmd rivertile "main-location right"
+riverctl map normal Super+Alt K send-layout-cmd rivertile "main-location top"
+riverctl map normal Super+Alt J send-layout-cmd rivertile "main-location bottom"
+
+# Multi-monitor / Output navigation
+riverctl map normal Super Period focus-output next
+riverctl map normal Super Comma focus-output previous
+riverctl map normal Super+Shift Period send-to-output next
+riverctl map normal Super+Shift Comma send-to-output previous
+
+# Mouse window control
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+
+# ── DWM Tag Bitmasks 1-9 ──────────────────────────────────────────────────────
+for i in $(seq 1 9); do
+    tags=$((1 << (i - 1)))
+
+    # Super + [1-9]: View tag
+    riverctl map normal Super "$i" set-focused-tags "$tags"
+
+    # Super + Shift + [1-9]: Move window to tag
+    riverctl map normal Super+Shift "$i" set-view-tags "$tags"
+
+    # Super + Control + [1-9]: Toggle focus on tag (view multiple tags simultaneously)
+    riverctl map normal Super+Control "$i" toggle-focused-tags "$tags"
+
+    # Super + Shift + Control + [1-9]: Toggle tag on window (assign window to multiple tags)
+    riverctl map normal Super+Shift+Control "$i" toggle-view-tags "$tags"
+done
+
+# Super + 0: View all tags (1-9)
+all_tags=$(((1 << 9) - 1))
+riverctl map normal Super 0 set-focused-tags "$all_tags"
+riverctl map normal Super+Shift 0 set-view-tags "$all_tags"
+
+# Scratchpad terminal (spterm) mapped to tag 32 (1 << 31)
+scratch_tag=$((1 << 31))
+riverctl map normal Super+Shift Return toggle-focused-tags "$scratch_tag"
+riverctl map normal Super+Control Return set-view-tags "$scratch_tag"
+
+# ── Audio & Volume Controls (pamixer) ─────────────────────────────────────────
+riverctl map normal None XF86AudioRaiseVolume spawn "pamixer --allow-boost -i 3"
+riverctl map normal None XF86AudioLowerVolume spawn "pamixer --allow-boost -d 3"
+riverctl map normal None XF86AudioMute spawn "pamixer -t"
+riverctl map normal None XF86AudioMicMute spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+riverctl map normal Super minus spawn "pamixer --allow-boost -d 5"
+riverctl map normal Super+Shift minus spawn "pamixer --allow-boost -d 15"
+riverctl map normal Super equal spawn "pamixer --allow-boost -i 5"
+riverctl map normal Super+Shift equal spawn "pamixer --allow-boost -i 15"
+riverctl map normal Super+Shift M spawn "pamixer -t"
+
+# ── Media Player (MPD / mpc) ──────────────────────────────────────────────────
+riverctl map normal None XF86AudioPlay spawn "mpc play"
+riverctl map normal None XF86AudioPause spawn "mpc pause"
+riverctl map normal None XF86AudioStop spawn "mpc stop"
+riverctl map normal None XF86AudioPrev spawn "mpc prev"
+riverctl map normal None XF86AudioNext spawn "mpc next"
+
+# ── Brightness Controls (brightnessctl) ───────────────────────────────────────
+riverctl map normal None XF86MonBrightnessUp spawn "brightnessctl set +5%"
+riverctl map normal None XF86MonBrightnessDown spawn "brightnessctl -n1 set 5%-"
+
+# ── Screenshots (grim + slurp) ────────────────────────────────────────────────
+riverctl map normal None Print spawn 'grim -g "$(slurp)" - | wl-copy'
+riverctl map normal Shift Print spawn 'mkdir -p ~/Pictures/Screenshots && grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png'
+riverctl map normal Super Print spawn 'mkdir -p ~/Pictures/Screenshots && grim ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png'
+
+# ── Window Rules & Floating Dialogs ───────────────────────────────────────────
+riverctl rule-add -app-id "float*" float
+riverctl rule-add -app-id "pavucontrol" float
+riverctl rule-add -app-id "blueberry.py" float
+riverctl rule-add -app-id "pinentry-*" float
+riverctl rule-add -app-id "spterm" float
+riverctl rule-add -app-id "spterm" tags "$scratch_tag"
+riverctl rule-add ssd
+
+# ── Layout & Background Daemons ───────────────────────────────────────────────
+# Default layout generator
+riverctl default-layout rivertile
+
+# Spawn rivertile master-and-stack layout generator
+rivertile -view-padding 4 -outer-padding 4 -main-ratio 0.55 &
+
+# Display management (kanshi)
+kanshi &
+
+# Wallpaper
+swaybg -i "$HOME/.config/wallpapers/wall.jpg" -m fill &
+
+# Notifications & Status bar
+mako &
+waybar -c "$HOME/.config/waybar/river-config.jsonc" &
+
+# Idle management & screen lock
+swayidle -w timeout 300 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000' &
