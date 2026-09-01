@@ -10,7 +10,6 @@ let
   hyprPluginDir = pkgs.symlinkJoin {
     name = "hyprland-plugins";
     paths = [
-      inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
     ];
   };
 in
