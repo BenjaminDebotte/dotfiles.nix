@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: 
+{ pkgs, ... }:
 
 {
   # programs.gamemode.enable = true;
@@ -18,8 +18,8 @@
     xdgOpenUsePortal = false;
     config = {
       common = {
-          default = "*";
-        };
+        default = "*";
+      };
     };
     extraPortals = [
       # pkgs.xdg-desktop-portal-hyprland
@@ -28,7 +28,7 @@
   };
 
   programs = {
-    # steam = { 
+    # steam = {
     #   enable = true;
     #   remotePlay.openFirewall = true;
     #   dedicatedServer.openFirewall = true;
@@ -48,9 +48,9 @@
 
       plugins = with pkgs; [
         tmuxPlugins.vim-tmux-navigator
-          tmuxPlugins.resurrect
-          tmuxPlugins.continuum
-          tmuxPlugins.catppuccin
+        tmuxPlugins.resurrect
+        tmuxPlugins.continuum
+        tmuxPlugins.catppuccin
       ];
 
       extraConfig = ''
@@ -90,7 +90,7 @@
         set -g @resurrect-capture-pane-contents 'on'
         set -g @continuum-restore 'on'
         set -g @catppuccin-flavour 'macchiato'
-        '';
+      '';
     };
 
     zsh.enable = true;

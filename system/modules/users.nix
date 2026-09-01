@@ -1,17 +1,17 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   users.users.bdebotte = {
     isNormalUser = true;
     createHome = true;
     shell = pkgs.zsh;
-    extraGroups = [ 
-      "wheel" 
+    extraGroups = [
+      "wheel"
       "qemu"
       "kvm"
       "libvirtd"
       "networkmanager"
       "gamemode"
-    ]; 
+    ];
   };
 }

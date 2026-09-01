@@ -1,16 +1,21 @@
-{ pkgs, ... }: 
+_:
 
 {
-  security.polkit.enable = true;
-  security.pam.services.swaylock = {};
-  security.pam.services.swaylock.fprintAuth = false;
-  security.sudo.extraRules = [{
-    users = [ "bdebotte" ];
-    commands = [
-    {
-      command = "ALL";
-      options = [ "NOPASSWD" ];
-    }
+  security = {
+    polkit.enable = true;
+    pam.services.swaylock = {
+      fprintAuth = false;
+    };
+    sudo.extraRules = [
+      {
+        users = [ "bdebotte" ];
+        commands = [
+          {
+            command = "ALL";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+      }
     ];
-  }];
+  };
 }

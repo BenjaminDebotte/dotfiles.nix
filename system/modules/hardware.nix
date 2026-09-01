@@ -1,8 +1,8 @@
-{ config, pkgs, ... }: 
+_:
 
 {
- hardware = {
+  hardware = {
     bluetooth.enable = true;
     graphics.enable = true;
- };
+  };
 }

@@ -3,9 +3,9 @@ let
   email = "benjamin.debotte@gmail.com";
 in
 {
-    programs.git = {
-        enable = true;
-        userName = userName;
-        userEmail = email;
-    };
+  programs.git = {
+    enable = true;
+    inherit userName;
+    userEmail = email;
+  };
 }

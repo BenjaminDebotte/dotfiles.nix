@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    glib 
+    glib
     gsettings-desktop-schemas
     nwg-look
   ];

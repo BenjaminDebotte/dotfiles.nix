@@ -1,20 +1,20 @@
 {
-    imports = [
-        ./git.nix
-        ./gtk.nix
-        ./shell.nix
-        ./config.nix
-        ./packages.nix
-        ./programs.nix
-        ./environment.nix
-        ./neovim.nix
-        ./ai.nix
-    ];
+  imports = [
+    ./git.nix
+    ./gtk.nix
+    ./shell.nix
+    ./config.nix
+    ./packages.nix
+    ./programs.nix
+    ./environment.nix
+    ./neovim.nix
+    ./ai.nix
+  ];
 
   nixpkgs = {
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
 
       permittedInsecurePackages = [
       ];
