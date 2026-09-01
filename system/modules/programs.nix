@@ -14,17 +14,28 @@
 
   xdg.portal = {
     enable = true;
-    wlr.enable = false;
+    wlr.enable = true;
     xdgOpenUsePortal = false;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
     config = {
       common = {
-        default = "*";
+        default = [ "gtk" ];
+      };
+      river = {
+        default = [
+          "wlr"
+          "gtk"
+        ];
+      };
+      Hyprland = {
+        default = [
+          "hyprland"
+          "gtk"
+        ];
       };
     };
-    extraPortals = [
-      # pkgs.xdg-desktop-portal-hyprland
-      # pkgs.xdg-desktop-portal-gtk
-    ];
   };
 
   programs = {

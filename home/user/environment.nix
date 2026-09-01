@@ -35,9 +35,7 @@ in
     XDG_BIN_HOME = "\${HOME}/.local/bin";
     XDG_CACHE_HOME = "\${HOME}/.cache";
     XDG_CONFIG_HOME = "\${HOME}/.config";
-    XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_DATA_HOME = "\${HOME}/.local/share";
-    XDG_SESSION_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     GTK_CSD = "0";
     GTK_THEME = "Catppuccin-Macchiato-Compact-Blue-Dark";
