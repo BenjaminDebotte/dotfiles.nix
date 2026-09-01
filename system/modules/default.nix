@@ -13,6 +13,7 @@
     ./packages.nix
     ./polkit.nix
     ./programs.nix
+    ./river.nix
     ./security.nix
     ./services.nix
     ./sound.nix
