@@ -8,7 +8,7 @@
 
   environment.systemPackages = with pkgs; [
     hyprpaper
-    hyprlandPlugins.hyprsplit
+    # hyprlandPlugins.hyprsplit
     kitty
     libnotify
     mako

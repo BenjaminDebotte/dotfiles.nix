@@ -6,7 +6,7 @@
   home.packages = [
 
 # Hyprland
-    pkgs-unstable.hyprlandPlugins.hyprsplit
+    # pkgs-unstable.hyprlandPlugins.hyprsplit
 
     pkgs.brightnessctl
 

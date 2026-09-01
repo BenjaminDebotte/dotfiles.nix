@@ -4,7 +4,7 @@ with lib; let
   hyprPluginDir = pkgs.symlinkJoin {
       name = "hyprland-plugins";
       paths = [
-        pkgs.hyprlandPlugins.hyprsplit
+        # pkgs.hyprlandPlugins.hyprsplit
       ];
     };
 in
