@@ -27,7 +27,8 @@ riverctl border-width 2
 # Focus behavior
 riverctl focus-follows-cursor normal
 riverctl set-cursor-warp on-focus-change
-riverctl attach-mode top
+riverctl default-attach-mode top
+riverctl attach-mode top 2>/dev/null || true
 
 # ── Terminal & Applications ───────────────────────────────────────────────────
 riverctl map normal Super Return spawn "kitty"
@@ -89,10 +90,12 @@ riverctl map normal Super h send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map normal Super l send-layout-cmd rivertile "main-ratio +0.05"
 riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
-riverctl map normal Super i send-layout-cmd rivertile "main-count +1"
-riverctl map normal Super I send-layout-cmd rivertile "main-count +1"
-riverctl map normal Super d send-layout-cmd rivertile "main-count -1"
-riverctl map normal Super D send-layout-cmd rivertile "main-count -1"
+riverctl map normal Super+Alt i send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super+Alt I send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super+Alt d send-layout-cmd rivertile "main-count -1"
+riverctl map normal Super+Alt D send-layout-cmd rivertile "main-count -1"
+riverctl map normal Super bracketright send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super bracketleft send-layout-cmd rivertile "main-count -1"
 
 # Master location / orientation
 riverctl map normal Super+Alt H send-layout-cmd rivertile "main-location left"
@@ -193,6 +196,7 @@ pkill kanshi 2>/dev/null || true
 pkill swaybg 2>/dev/null || true
 pkill mako 2>/dev/null || true
 pkill waybar 2>/dev/null || true
+pkill swayidle 2>/dev/null || true
 
 # Spawn rivertile master-and-stack layout generator
 rivertile -view-padding 4 -outer-padding 4 -main-ratio 0.55 &
