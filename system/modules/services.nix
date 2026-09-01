@@ -3,7 +3,7 @@ _:
 {
   services = {
     dbus.enable = true;
-    picom.enable = true;
+    picom.enable = false;
     openssh.enable = true;
     spice-vdagentd.enable = true;
 
