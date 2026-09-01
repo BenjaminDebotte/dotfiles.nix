@@ -33,7 +33,7 @@
   },
 
   "river/window": {
-    "format": "{title}",
+    "format": "{}",
     "max-length": 50
   },
 
