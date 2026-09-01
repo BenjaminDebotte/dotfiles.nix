@@ -6,13 +6,13 @@
 **Description:** Add system-level River configuration enabling `programs.river.enable = true` and adding core Wayland tools (`rivertile`, `swaybg`, `kanshi`, `wlr-randr`, `grim`, `slurp`, `pamixer`, `brightnessctl`) so River appears in SDDM alongside Hyprland.
 
 **Acceptance criteria:**
-- [ ] `system/modules/river.nix` is created with `programs.river.enable = true;` and necessary system packages.
-- [ ] `system/modules/default.nix` imports `./river.nix`.
-- [ ] No existing system modules (including `hyprland.nix` and `hardware-configuration.nix`) are broken.
+- [x] `system/modules/river.nix` is created with `programs.river.enable = true;` and necessary system packages.
+- [x] `system/modules/default.nix` imports `./river.nix`.
+- [x] No existing system modules (including `hyprland.nix` and `hardware-configuration.nix`) are broken.
 
 **Verification:**
-- [ ] `nix-instantiate --parse system/modules/river.nix`
-- [ ] `nix-instantiate --parse system/modules/default.nix`
+- [x] `nix-instantiate --parse system/modules/river.nix`
+- [x] `nix-instantiate --parse system/modules/default.nix`
 
 **Dependencies:** None
 **Files likely touched:**
@@ -26,13 +26,13 @@
 **Description:** Update `system/modules/programs.nix` to properly route `xdg.portal` requests based on the running compositor (`wlr` for River, `hyprland` for Hyprland), and remove hardcoded `XDG_CURRENT_DESKTOP = "Hyprland"` and `XDG_SESSION_DESKTOP = "Hyprland"` from `home/user/environment.nix`.
 
 **Acceptance criteria:**
-- [ ] `system/modules/programs.nix` configures `xdg.portal` with `wlr.enable = true` and multi-compositor desktop configs.
-- [ ] `home/user/environment.nix` does not hardcode `XDG_CURRENT_DESKTOP` or `XDG_SESSION_DESKTOP` so SDDM sets them correctly for River or Hyprland.
-- [ ] Wayland flags, editor, browser, and theme environment variables remain intact.
+- [x] `system/modules/programs.nix` configures `xdg.portal` with `wlr.enable = true` and multi-compositor desktop configs.
+- [x] `home/user/environment.nix` does not hardcode `XDG_CURRENT_DESKTOP` or `XDG_SESSION_DESKTOP` so SDDM sets them correctly for River or Hyprland.
+- [x] Wayland flags, editor, browser, and theme environment variables remain intact.
 
 **Verification:**
-- [ ] `nix-instantiate --parse system/modules/programs.nix`
-- [ ] `nix-instantiate --parse home/user/environment.nix`
+- [x] `nix-instantiate --parse system/modules/programs.nix`
+- [x] `nix-instantiate --parse home/user/environment.nix`
 
 **Dependencies:** Task 1
 **Files likely touched:**
@@ -43,8 +43,8 @@
 ---
 
 ## Checkpoint: System & Portal Configuration
-- [ ] `nix flake check` or parsing checks pass for all modified NixOS modules.
-- [ ] System module changes follow declarative rules and 2-space indentation.
+- [x] `nix flake check` or parsing checks pass for all modified NixOS modules.
+- [x] System module changes follow declarative rules and 2-space indentation.
 
 ---
 
@@ -66,13 +66,13 @@
 5. Autostart daemons: `kanshi`, `swaybg`, `mako`, `waybar` (with River config), `rivertile`, and Polkit gnome authentication agent.
 
 **Acceptance criteria:**
-- [ ] `home/config/river/init` is created with a complete, well-commented shell configuration for `riverctl`.
-- [ ] All 1–9 DWM bitmask tag mappings (single tag, multi-tag view, assign tag, multi-tag assign, view all) are implemented.
-- [ ] All master/stack layout commands communicate with `rivertile`.
-- [ ] All application and media shortcuts from `bind.conf` are accurately ported.
+- [x] `home/config/river/init` is created with a complete, well-commented shell configuration for `riverctl`.
+- [x] All 1–9 DWM bitmask tag mappings (single tag, multi-tag view, assign tag, multi-tag assign, view all) are implemented.
+- [x] All master/stack layout commands communicate with `rivertile`.
+- [x] All application and media shortcuts from `bind.conf` are accurately ported.
 
 **Verification:**
-- [ ] `bash -n home/config/river/init` passes syntax validation.
+- [x] `bash -n home/config/river/init` passes syntax validation.
 
 **Dependencies:** Task 2
 **Files likely touched:**
@@ -85,11 +85,11 @@
 **Description:** Update `home/user/config.nix` to link `home/config/river/init` as an executable file (`.config/river/init`) in `~/.config/river/` and ensure all required user utilities are declared.
 
 **Acceptance criteria:**
-- [ ] `home/user/config.nix` maps `.config/river/init` with `executable = true`.
-- [ ] Home Manager links `.config/kanshi` if separate config file is present.
+- [x] `home/user/config.nix` maps `.config/river/init` with `executable = true`.
+- [x] Home Manager links `.config/kanshi` if separate config file is present.
 
 **Verification:**
-- [ ] `nix-instantiate --parse home/user/config.nix`
+- [x] `nix-instantiate --parse home/user/config.nix`
 
 **Dependencies:** Task 3
 **Files likely touched:**
@@ -99,8 +99,8 @@
 ---
 
 ## Checkpoint: River Init & Dotfile Links
-- [ ] `bash -n home/config/river/init` returns 0.
-- [ ] Home Manager configuration parses cleanly.
+- [x] `bash -n home/config/river/init` returns 0.
+- [x] Home Manager configuration parses cleanly.
 
 ---
 
@@ -110,12 +110,12 @@
 **Description:** Create a dedicated Waybar configuration for River (`river-config.jsonc`) that uses `river/tags` and `river/layout` while preserving all hardware modules (battery, backlight, audio, cpu, clock, tray, etc.). Update `home/config/waybar/style.css` to style `#tags button`, `#tags button.focused`, `#tags button.occupied`, `#tags button.urgent`, and `#layout` with the existing Everforest color palette.
 
 **Acceptance criteria:**
-- [ ] `home/config/waybar/river-config.jsonc` is created with `river/tags`, `river/layout`, `river/window`, and all right-hand status modules.
-- [ ] `home/config/waybar/style.css` contains styling rules for River tags and layout consistent with the `#workspaces` design.
-- [ ] Existing `config.jsonc` remains intact for Hyprland.
+- [x] `home/config/waybar/river-config.jsonc` is created with `river/tags`, `river/layout`, `river/window`, and all right-hand status modules.
+- [x] `home/config/waybar/style.css` contains styling rules for River tags and layout consistent with the `#workspaces` design.
+- [x] Existing `config.jsonc` remains intact for Hyprland.
 
 **Verification:**
-- [ ] JSON syntax check: `python3 -m json.tool home/config/waybar/river-config.jsonc > /dev/null` or equivalent JSON parser.
+- [x] JSON syntax check: `python3 -m json.tool home/config/waybar/river-config.jsonc > /dev/null` or equivalent JSON parser.
 
 **Dependencies:** Task 4
 **Files likely touched:**
@@ -129,13 +129,13 @@
 **Description:** Create `home/config/kanshi/config` with the laptop display profile (`eDP-1` highres@highrr / default) and run repository-wide verification (`nix fmt`, `nix flake check`, and git status check) to guarantee zero syntax or evaluation errors.
 
 **Acceptance criteria:**
-- [ ] `home/config/kanshi/config` created.
-- [ ] Formatting is applied across all touched `.nix` files using `nix fmt`.
-- [ ] `nix flake check` or `nix-instantiate` succeeds with zero errors.
+- [x] `home/config/kanshi/config` created.
+- [x] Formatting is applied across all touched `.nix` files using `nix fmt`.
+- [x] `nix flake check` or `nix-instantiate` succeeds with zero errors.
 
 **Verification:**
-- [ ] `nix fmt`
-- [ ] `nix flake check` (or evaluation of NixOS and Home Manager configurations).
+- [x] `nix fmt`
+- [x] `nix flake check` (or evaluation of NixOS and Home Manager configurations).
 
 **Dependencies:** Task 5
 **Files likely touched:**
@@ -145,6 +145,6 @@
 ---
 
 ## Checkpoint: Final Review & Acceptance
-- [ ] All tasks in `tasks/todo.md` checked.
-- [ ] Declarative NixOS and Home Manager configuration complete and formatted.
-- [ ] Ready for user review.
+- [x] All tasks in `tasks/todo.md` checked.
+- [x] Declarative NixOS and Home Manager configuration complete and formatted.
+- [x] Ready for user review.
