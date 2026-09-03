@@ -30,15 +30,14 @@ _:
 
     };
     displayManager = {
+      defaultSession = "river";
+      autoLogin.enable = true;
+      autoLogin.user = "bdebotte";
+
       sddm = {
         enable = true;
         # theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
         wayland.enable = true;
-        settings = {
-          Autologin = {
-            User = "bdebotte";
-          };
-        };
       };
     };
   };
