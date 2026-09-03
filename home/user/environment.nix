@@ -1,17 +1,5 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+_:
 
-with lib;
-let
-  hyprPluginDir = pkgs.symlinkJoin {
-    name = "hyprland-plugins";
-    paths = [
-    ];
-  };
-in
 {
   home.sessionVariables = {
     BROWSER = "firefox";
@@ -38,7 +26,6 @@ in
     XDG_SESSION_TYPE = "wayland";
     GTK_CSD = "0";
     GTK_THEME = "Catppuccin-Macchiato-Compact-Blue-Dark";
-    HYPR_PLUGIN_DIR = hyprPluginDir;
     PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
     XCURSOR_SIZE = "32";
   };

@@ -7,11 +7,10 @@
   "passthrough": false,
   "gtk-layer-shell": true,
   "margin-bottom": 10,
-  "modules-left": ["hyprland/workspaces"],
-  "modules-center": ["hyprland/window"],
+  "modules-left": ["river/tags", "river/layout"],
+  "modules-center": ["river/window"],
   "modules-right": [
     "tray",
-    "custom/updates",
     "bluetooth",
     "backlight",
     "temperature",
@@ -20,20 +19,22 @@
     "pulseaudio",
     "network",
     "battery",
-    "clock",
+    "clock"
   ],
 
-  "hyprland/window": {
-    "format": "{title}"
+  "river/tags": {
+    "num-tags": 9,
+    "tag-labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
   },
-  "hyprland/workspaces": {
-    "disable-scroll": true,
-    "all-outputs": false,
-    "on-click": "activate",
-    "persistent_workspaces": {
-      "DP-4": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      "DP-6": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-    }
+
+  "river/layout": {
+    "format": "{}",
+    "min-length": 4
+  },
+
+  "river/window": {
+    "format": "{}",
+    "max-length": 50
   },
 
   "battery": {
@@ -78,8 +79,6 @@
   },
 
   "temperature": {
-    // "thermal-zone": 2,
-    // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "critical-threshold": 80,
     "format-critical": " {temperatureC}°C",
     "format": " {temperatureC}°C"
@@ -123,5 +122,5 @@
     "format": "󰳲 {percent}%",
     "on-scroll-up": "brightnessctl set +5%",
     "on-scroll-down": "brightnessctl -n1 set 5%-"
-  },
+  }
 }

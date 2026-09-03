@@ -211,7 +211,7 @@ swaybg -i "$HOME/.config/wallpapers/wall.jpg" -m fill &
 mako &
 
 # Status bar (Waybar)
-waybar -c "$HOME/.config/waybar/river-config.jsonc" &
+waybar &
 
 # Idle management & screen lock
 swayidle -w timeout 300 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000' &

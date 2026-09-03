@@ -10,7 +10,6 @@ in
     ".config/wallpapers".source = "${configDir}/wallpapers";
     ".config/kitty".source = "${configDir}/kitty";
     ".config/neofetch".source = "${configDir}/neofetch";
-    ".config/hypr".source = "${configDir}/hypr";
     ".config/river/init" = {
       source = "${configDir}/river/init";
       executable = true;

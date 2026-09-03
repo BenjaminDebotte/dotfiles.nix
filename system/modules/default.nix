@@ -5,7 +5,6 @@
     ./boot.nix
     ./fonts.nix
     ./hardware.nix
-    ./hyprland.nix
     ./internationalisation.nix
     ./misc.nix
     ./networking.nix

@@ -29,12 +29,6 @@
           "gtk"
         ];
       };
-      Hyprland = {
-        default = [
-          "hyprland"
-          "gtk"
-        ];
-      };
     };
   };
 

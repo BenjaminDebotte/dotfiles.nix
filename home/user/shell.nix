@@ -1,22 +1,46 @@
 { pkgs, ... }:
 let
   myAliases = {
+    # System CLI replacements
     docker-compose = "podman-compose";
     cat = "bat";
     ls = "eza --icons=always";
     vim = "nvim";
+    cdot = "cd ~/.dotfiles";
 
-    fullClean = ''
-      nix-collect-garbage --delete-old
+    # --- NixOS & Home Manager Rebuilds ---
+    nrs = "sudo nixos-rebuild switch --flake ~/.dotfiles/#nixos";
+    rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/#nixos";
+    nrb = "sudo nixos-rebuild boot --flake ~/.dotfiles/#nixos";
+    nrt = "sudo nixos-rebuild test --flake ~/.dotfiles/#nixos";
+    ndry = "sudo nixos-rebuild dry-build --flake ~/.dotfiles/#nixos";
 
-      sudo nix-collect-garbage -d
+    hms = "home-manager switch --flake ~/.dotfiles/#bdebotte -b backup";
+    homeRebuild = "home-manager switch --flake ~/.dotfiles/#bdebotte -b backup";
 
-      sudo /run/current-system/bin/switch-to-configuration boot
-    '';
-    rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/";
-    fullRebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/ && home-manager switch --flake ~/.dotfiles/ -b backup";
-    homeRebuild = "home-manager switch --flake ~/.dotfiles/ -b backup";
-    update = "sudo nixos-rebuild switch --flake ~/.dotfiles/ --upgrade";
+    fullRebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/#nixos && home-manager switch --flake ~/.dotfiles/#bdebotte -b backup";
+    allRebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/#nixos && home-manager switch --flake ~/.dotfiles/#bdebotte -b backup";
+
+    # --- Flake Operations ---
+    nfc = "nix flake check ~/.dotfiles";
+    flakeCheck = "nix flake check ~/.dotfiles";
+    nfmt = "nix fmt ~/.dotfiles";
+    nfu = "nix flake update --flake ~/.dotfiles";
+    flakeUpdate = "nix flake update --flake ~/.dotfiles";
+    nshow = "nix flake show ~/.dotfiles";
+    ns = "nix search nixpkgs";
+
+    # --- Generations & Rollbacks ---
+    ngen = "nixos-rebuild list-generations";
+    hgen = "home-manager generations";
+    nrollback = "sudo nixos-rebuild switch --rollback";
+    ndiff = "nix store diff-closures /run/booted-system /run/current-system";
+
+    # --- Clean & Garbage Collection ---
+    ngc = "nix-collect-garbage --delete-older-than 7d";
+    nsudogc = "sudo nix-collect-garbage --delete-older-than 7d";
+    nopt = "nix-store --optimise";
+    fullClean = "nix-collect-garbage --delete-older-than 7d && sudo nix-collect-garbage --delete-older-than 7d && sudo /run/current-system/bin/switch-to-configuration boot && nix-store --optimise";
   };
 in
 {
