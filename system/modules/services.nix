@@ -6,6 +6,7 @@ _:
     picom.enable = false;
     openssh.enable = true;
     spice-vdagentd.enable = true;
+    tailscale.enable = true;
 
     # Laptop specific
     tlp = {
