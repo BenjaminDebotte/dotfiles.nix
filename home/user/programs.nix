@@ -2,6 +2,14 @@
 
 {
   programs = {
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      options = [
+        "--cmd"
+        "cd"
+      ];
+    };
     home-manager.enable = true;
     mise = {
       enable = true;
