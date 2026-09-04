@@ -3,6 +3,9 @@
 {
   programs = {
     home-manager.enable = true;
+    mise = {
+      enable = true;
+    };
     ssh = {
       enable = true;
       forwardAgent = true;
