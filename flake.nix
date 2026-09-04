@@ -16,6 +16,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -41,6 +42,7 @@
     {
       nixpkgs,
       nixpkgs-unstable,
+      nixos-hardware,
       home-manager,
       treefmt-nix,
       git-hooks-nix,
@@ -53,7 +55,10 @@
         inherit system;
         config.allowUnfree = true;
       };
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
       # Eval treefmt
       treefmtEval = treefmt-nix.lib.evalModule pkgs {
@@ -91,6 +96,7 @@
         nixos = lib.nixosSystem {
           inherit system;
           modules = [
+            nixos-hardware.nixosModules.dell-xps-13-9300
             ./system/configuration.nix
           ];
           specialArgs = {

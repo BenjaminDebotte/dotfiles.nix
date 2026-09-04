@@ -202,6 +202,25 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1788335262,
+        "narHash": "sha256-3jBEq8avfzlrsY4UpW4d5TOmm7ocseZfnitEJhqauyc=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "44d95795ee2d475b3d687325e26dcf4ca9104557",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1787964612,
@@ -236,6 +255,19 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1767892417,
+        "narHash": "sha256-8bW3q88CEg2u4hSP66Vf4lpbLonHz7hqDNBMcCY7E9U=",
+        "rev": "3497aa5c9457a9d88d71fa93a4a8368816fbeeba",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.05pre924538.3497aa5c9457/nixexprs.tar.xz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1767313136,
         "narHash": "sha256-16KkgfdYqjaeRGBaYsNrhPRRENs0qzkQVUooNHtoy2w=",
         "owner": "NixOS",
@@ -250,7 +282,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1773646010,
         "narHash": "sha256-iYrs97hS7p5u4lQzuNWzuALGIOdkPXvjz7bviiBjUu8=",
@@ -270,7 +302,7 @@
       "inputs": {
         "bun2nix": "bun2nix",
         "jail-nix": "jail-nix",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "systems": "systems"
       },
       "locked": {
@@ -293,7 +325,8 @@
         "git-hooks-nix": "git-hooks-nix",
         "home-manager": "home-manager",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "nixpkgs": "nixpkgs_2",
+        "nixos-hardware": "nixos-hardware",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "pi": "pi",
         "treefmt-nix": "treefmt-nix_2"

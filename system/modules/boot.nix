@@ -9,7 +9,7 @@ _:
     tmp.cleanOnBoot = true;
     supportedFilesystems = [ "ntfs" ];
     loader = {
-      efi.canTouchEfiVariables = false;
+      efi.canTouchEfiVariables = true;
       systemd-boot = {
         enable = true;
         consoleMode = "auto";
