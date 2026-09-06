@@ -1,4 +1,10 @@
 {
+    "label" : "lock",
+    "action" : "swaylock -f -c 000000",
+    "text" : "Lock",
+    "keybind" : "l"
+}
+{
     "label" : "hibernate",
     "action" : "systemctl hibernate",
     "text" : "Hibernate",
