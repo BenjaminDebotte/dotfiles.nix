@@ -38,115 +38,110 @@
     };
   };
 
-  outputs =
-    {
-      nixpkgs,
-      nixpkgs-unstable,
-      nixos-hardware,
-      home-manager,
-      treefmt-nix,
-      git-hooks-nix,
-      ...
-    }@inputs:
-    let
-      inherit (nixpkgs) lib;
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
+  outputs = {
+    nixpkgs,
+    nixpkgs-unstable,
+    nixos-hardware,
+    home-manager,
+    treefmt-nix,
+    git-hooks-nix,
+    ...
+  } @ inputs: let
+    inherit (nixpkgs) lib;
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+    pkgs-unstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
+
+    # Eval treefmt
+    treefmtEval = treefmt-nix.lib.evalModule pkgs {
+      projectRootFile = "flake.nix";
+      programs.alejandra.enable = true;
+      # programs.shfmt.enable = true; # Bash
+      # programs.stylua.enable = true; # Lua
+      # programs.prettier.enable = true; # Markdown
+    };
+
+    # Eval pre-commit hooks
+    pre-commit-check = git-hooks-nix.lib.${system}.run {
+      src = ./.;
+      hooks = {
+        treefmt = {
+          enable = true;
+          package = treefmtEval.config.build.wrapper;
+        };
+        statix.enable = true;
+        deadnix.enable = true;
+      };
+    };
+  in {
+    formatter.${system} = treefmtEval.config.build.wrapper;
+    checks.${system}.pre-commit-check = pre-commit-check;
+    devShells.${system}.default = pkgs.mkShell {
+      inherit (pre-commit-check) shellHook;
+      buildInputs = pre-commit-check.enabledPackages;
+    };
+
+    nixosConfigurations = {
+      # Ta configuration actuelle
+      nixos = lib.nixosSystem {
         inherit system;
-        config.allowUnfree = true;
+        modules = [
+          nixos-hardware.nixosModules.dell-xps-13-9300
+          ./system/configuration.nix
+        ];
+        specialArgs = {
+          inherit inputs;
+        };
       };
-      pkgs-unstable = import nixpkgs-unstable {
+
+      # NOUVEAU : La configuration pour créer ta clé USB bootable
+      iso = lib.nixosSystem {
         inherit system;
-        config.allowUnfree = true;
+        specialArgs = {inherit inputs;};
+        modules = [
+          # Le module magique qui transforme cette config en ISO
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+
+          # Quelques configurations utiles pour ton Live USB
+          (
+            {pkgs, ...}: {
+              # Activer les flakes par défaut sur l'ISO pour pouvoir installer directement
+              nix.settings.experimental-features = [
+                "nix-command"
+                "flakes"
+              ];
+
+              # Outils indispensables pour l'installation sur le nouveau laptop
+              environment.systemPackages = with pkgs; [
+                git
+                neovim
+                parted
+              ];
+            }
+          )
+        ];
       };
+    };
 
-      # Eval treefmt
-      treefmtEval = treefmt-nix.lib.evalModule pkgs {
-        projectRootFile = "flake.nix";
-        programs.nixfmt.enable = true;
-        programs.nixfmt.package = pkgs.nixfmt-rfc-style;
-        # programs.shfmt.enable = true; # Bash
-        # programs.stylua.enable = true; # Lua
-        # programs.prettier.enable = true; # Markdown
-      };
-
-      # Eval pre-commit hooks
-      pre-commit-check = git-hooks-nix.lib.${system}.run {
-        src = ./.;
-        hooks = {
-          treefmt = {
-            enable = true;
-            package = treefmtEval.config.build.wrapper;
-          };
-          statix.enable = true;
-          deadnix.enable = true;
-        };
-      };
-    in
-    {
-      formatter.${system} = treefmtEval.config.build.wrapper;
-      checks.${system}.pre-commit-check = pre-commit-check;
-      devShells.${system}.default = pkgs.mkShell {
-        inherit (pre-commit-check) shellHook;
-        buildInputs = pre-commit-check.enabledPackages;
-      };
-
-      nixosConfigurations = {
-        # Ta configuration actuelle
-        nixos = lib.nixosSystem {
-          inherit system;
-          modules = [
-            nixos-hardware.nixosModules.dell-xps-13-9300
-            ./system/configuration.nix
-          ];
-          specialArgs = {
-            inherit inputs;
-          };
-        };
-
-        # NOUVEAU : La configuration pour créer ta clé USB bootable
-        iso = lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [
-            # Le module magique qui transforme cette config en ISO
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-
-            # Quelques configurations utiles pour ton Live USB
-            (
-              { pkgs, ... }:
-              {
-                # Activer les flakes par défaut sur l'ISO pour pouvoir installer directement
-                nix.settings.experimental-features = [
-                  "nix-command"
-                  "flakes"
-                ];
-
-                # Outils indispensables pour l'installation sur le nouveau laptop
-                environment.systemPackages = with pkgs; [
-                  git
-                  neovim
-                  parted
-                ];
-              }
-            )
-          ];
-        };
-      };
-
-      homeConfigurations = {
-        bdebotte = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations = {
+      bdebotte = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          inputs.pi.homeModules.default
+          ./home
+        ];
+        extraSpecialArgs = {
+          inherit inputs;
           inherit pkgs;
-          modules = [
-            inputs.pi.homeModules.default
-            ./home
-          ];
-          extraSpecialArgs = {
-            inherit inputs;
-            inherit pkgs;
-            inherit pkgs-unstable;
-          };
+          inherit pkgs-unstable;
         };
       };
     };
+  };
 }

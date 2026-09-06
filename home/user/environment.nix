@@ -1,6 +1,4 @@
-_:
-
-{
+_: {
   home.sessionVariables = {
     BROWSER = "firefox";
     CLUTTER_BACKEND = "wayland";

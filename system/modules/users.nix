@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   users.users.bdebotte = {
     isNormalUser = true;
     createHome = true;

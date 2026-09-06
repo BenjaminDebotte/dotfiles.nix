@@ -1,7 +1,8 @@
-{ pkgs, pkgs-unstable, ... }:
-
 {
-
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   home.packages = [
     # Network
     pkgs.protonvpn-gui
@@ -45,6 +46,9 @@
     # Downloads
     pkgs.qbittorrent
 
+    # Media
+    pkgs.vlc
+
     # Utils
     pkgs.zsh-powerlevel10k
     pkgs.ethtool
@@ -53,5 +57,14 @@
     pkgs.catppuccin-gtk
     pkgs.papirus-folders
 
+    # Nix and System Management Tools
+    pkgs.go-task
+    pkgs.nix-output-monitor
+    pkgs.nvd
+    pkgs.nix-tree
+    pkgs.manix
+    pkgs.comma
+    pkgs.statix
+    pkgs.deadnix
   ];
 }

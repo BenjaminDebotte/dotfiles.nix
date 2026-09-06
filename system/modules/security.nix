@@ -1,6 +1,4 @@
-_:
-
-{
+_: {
   security = {
     polkit.enable = true;
     pam.services.swaylock = {
@@ -8,11 +6,11 @@ _:
     };
     sudo.extraRules = [
       {
-        users = [ "bdebotte" ];
+        users = ["bdebotte"];
         commands = [
           {
             command = "ALL";
-            options = [ "NOPASSWD" ];
+            options = ["NOPASSWD"];
           }
         ];
       }

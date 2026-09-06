@@ -1,0 +1,65 @@
+version: '3'
+
+vars:
+  FLAKE: "{{.TASKFILE_DIR}}"
+
+tasks:
+  default:
+    cmds:
+      - task -l
+    silent: true
+
+  switch:
+    desc: "Rebuild the NixOS system and switch to the new generation"
+    cmds:
+      - nh os switch {{.FLAKE}}
+
+  boot:
+    desc: "Rebuild the NixOS system and apply it on the next boot"
+    cmds:
+      - nh os boot {{.FLAKE}}
+
+  test:
+    desc: "Build and test the NixOS system configuration without switching (dry-run)"
+    cmds:
+      - nh os test {{.FLAKE}}
+
+  home:
+    desc: "Apply Home Manager configuration (standalone)"
+    cmds:
+      - nh home switch {{.FLAKE}}
+
+  update:
+    desc: "Update all flake inputs to their latest versions based on flake.lock"
+    cmds:
+      - nix flake update {{.FLAKE}}
+
+  clean:
+    desc: "Run garbage collection via nh to free up space (keeps 3 generations & last 7 days)"
+    cmds:
+      - nh clean all --keep-since 7d --keep 3
+
+  fmt:
+    desc: "Format all codebase files using treefmt (with alejandra for Nix)"
+    cmds:
+      - nix fmt {{.FLAKE}}
+
+  lint:
+    desc: "Run statix to check for Nix anti-patterns"
+    cmds:
+      - statix check {{.FLAKE}}
+
+  deadcode:
+    desc: "Find dead nix code with deadnix"
+    cmds:
+      - deadnix {{.FLAKE}}
+
+  diff:
+    desc: "Show a diff of the system closure (what packages changed since the last build)"
+    cmds:
+      - nvd diff /run/current-system $(ls -d1 /nix/var/nix/profiles/system-*-link | tail -n 1)
+
+  explore:
+    desc: "Visualize system derivation graph interactively using nix-tree"
+    cmds:
+      - nix-tree /run/current-system

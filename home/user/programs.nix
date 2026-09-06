@@ -1,6 +1,8 @@
-{ inputs, pkgs, ... }:
-
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   programs = {
     zoxide = {
       enable = true;
@@ -13,6 +15,10 @@
     home-manager.enable = true;
     mise = {
       enable = true;
+    };
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
     ssh = {
       enable = true;
@@ -37,7 +43,7 @@
     };
     firefox = {
       enable = true;
-      package = pkgs.firefox.override { cfg.enableTridactylNative = true; };
+      package = pkgs.firefox.override {cfg.enableTridactylNative = true;};
       profiles.bdebotte = {
         extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
           darkreader

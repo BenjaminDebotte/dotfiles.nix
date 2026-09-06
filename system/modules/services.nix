@@ -1,6 +1,4 @@
-_:
-
-{
+_: {
   services = {
     dbus.enable = true;
     picom.enable = false;
@@ -34,7 +32,6 @@ _:
       enable = true;
       xkb.layout = "us";
       xkb.options = "caps:super";
-
     };
     displayManager = {
       defaultSession = "river";

@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # programs.gamemode.enable = true;
   # programs.gamescope.enable = true;
 
@@ -21,7 +19,7 @@
     ];
     config = {
       common = {
-        default = [ "gtk" ];
+        default = ["gtk"];
       };
       river = {
         default = [
@@ -33,6 +31,13 @@
   };
 
   programs = {
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 7d --keep 3";
+      flake = "/home/bdebotte/.dotfiles";
+    };
+
     # steam = {
     #   enable = true;
     #   remotePlay.openFirewall = true;
@@ -101,5 +106,4 @@
     zsh.enable = true;
     mtr.enable = true;
   };
-
 }

@@ -1,8 +1,7 @@
 let
   userName = "Benjamin Debotte";
   email = "benjamin.debotte@gmail.com";
-in
-{
+in {
   programs.git = {
     enable = true;
     inherit userName;

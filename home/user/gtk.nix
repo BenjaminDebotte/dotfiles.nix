@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   gtk = {
     enable = true;
 
@@ -12,7 +11,7 @@
       name = "Catppuccin-Macchiato-Compact-Blue-dark";
       package = pkgs.catppuccin-gtk.override {
         size = "compact";
-        accents = [ "blue" ];
+        accents = ["blue"];
         variant = "macchiato";
       };
     };
@@ -33,6 +32,5 @@
         gtk-application-prefer-dark-theme = 1;
       '';
     };
-
   };
 }

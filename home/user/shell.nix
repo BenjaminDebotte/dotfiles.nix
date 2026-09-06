@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   myAliases = {
     # System CLI replacements
     docker-compose = "podman-compose";
@@ -42,8 +45,7 @@ let
     nopt = "nix-store --optimise";
     fullClean = "nix-collect-garbage --delete-older-than 7d && sudo nix-collect-garbage --delete-older-than 7d && sudo /run/current-system/bin/switch-to-configuration boot && nix-store --optimise";
   };
-in
-{
+in {
   programs = {
     zsh = {
       enable = true;

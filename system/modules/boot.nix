@@ -1,13 +1,11 @@
-_:
-
-{
+_: {
   boot = {
     kernelParams = [
       "nohibernate"
       "ipv6.disable=1"
     ];
     tmp.cleanOnBoot = true;
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = ["ntfs"];
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot = {
@@ -18,5 +16,4 @@ _:
       timeout = 5;
     };
   };
-
 }

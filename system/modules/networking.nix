@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
@@ -19,6 +17,6 @@
       User = "root";
       ExecStart = "${pkgs.ethtool}/bin/ethtool -K enp19s0 gro off gso off tso off";
     };
-    wantedBy = [ "network-pre.target" ];
+    wantedBy = ["network-pre.target"];
   };
 }
