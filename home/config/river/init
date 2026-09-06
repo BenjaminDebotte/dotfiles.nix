@@ -168,9 +168,19 @@ riverctl map normal None XF86AudioStop spawn "mpc stop"
 riverctl map normal None XF86AudioPrev spawn "mpc prev"
 riverctl map normal None XF86AudioNext spawn "mpc next"
 
-# ── Brightness Controls (brightnessctl) ───────────────────────────────────────
+# ── Brightness & Night Light Controls (brightnessctl & gammastep) ────────────
 riverctl map normal None XF86MonBrightnessUp spawn "brightnessctl set +5%"
 riverctl map normal None XF86MonBrightnessDown spawn "brightnessctl -n1 set 5%-"
+
+# Toggle Night Light (red / dim evening mode) with Brightness keys + modifiers
+riverctl map normal Super XF86MonBrightnessUp spawn "$HOME/.config/river/toggle-nightlight.sh"
+riverctl map normal Super XF86MonBrightnessDown spawn "$HOME/.config/river/toggle-nightlight.sh"
+riverctl map normal Shift XF86MonBrightnessUp spawn "$HOME/.config/river/toggle-nightlight.sh"
+riverctl map normal Shift XF86MonBrightnessDown spawn "$HOME/.config/river/toggle-nightlight.sh"
+riverctl map normal Super+Shift XF86MonBrightnessUp spawn "$HOME/.config/river/toggle-nightlight.sh"
+riverctl map normal Super+Shift XF86MonBrightnessDown spawn "$HOME/.config/river/toggle-nightlight.sh"
+riverctl map normal Super+Shift B spawn "$HOME/.config/river/toggle-nightlight.sh"
+riverctl map normal Super+Shift b spawn "$HOME/.config/river/toggle-nightlight.sh"
 
 # ── Screenshots (grim + slurp) ────────────────────────────────────────────────
 riverctl map normal None Print spawn 'grim -g "$(slurp)" - | wl-copy'
@@ -197,6 +207,8 @@ pkill swaybg 2>/dev/null || true
 pkill mako 2>/dev/null || true
 pkill waybar 2>/dev/null || true
 pkill swayidle 2>/dev/null || true
+pkill gammastep 2>/dev/null || true
+rm -f "${XDG_RUNTIME_DIR:-/tmp}/gammastep-${UID:-$USER}.state" 2>/dev/null || true
 
 # Spawn rivertile master-and-stack layout generator
 rivertile -view-padding 4 -outer-padding 4 -main-ratio 0.55 &
@@ -215,3 +227,6 @@ waybar &
 
 # Idle management & screen lock
 swayidle -w timeout 300 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000' &
+
+# Night light daemon (Gammastep: automatic evening red tone & dimming)
+gammastep &

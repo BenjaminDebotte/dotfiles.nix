@@ -9,6 +9,7 @@
       slurp
       pamixer
       brightnessctl
+      gammastep
       kitty
       libnotify
       mako

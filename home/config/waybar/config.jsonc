@@ -121,6 +121,7 @@
     "device": "intel_backlight",
     "format": "󰳲 {percent}%",
     "on-scroll-up": "brightnessctl set +5%",
-    "on-scroll-down": "brightnessctl -n1 set 5%-"
+    "on-scroll-down": "brightnessctl -n1 set 5%-",
+    "on-click-right": "$HOME/.config/river/toggle-nightlight.sh"
   }
 }

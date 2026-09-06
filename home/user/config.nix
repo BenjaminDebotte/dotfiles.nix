@@ -17,6 +17,11 @@ in {
       source = "${configDir}/river/scratchpad.sh";
       executable = true;
     };
+    ".config/river/toggle-nightlight.sh" = {
+      source = "${configDir}/river/toggle-nightlight.sh";
+      executable = true;
+    };
+    ".config/gammastep".source = "${configDir}/gammastep";
     ".config/kanshi".source = "${configDir}/kanshi";
     ".config/wlogout".source = "${configDir}/wlogout";
     ".config/waybar".source = "${configDir}/waybar";
