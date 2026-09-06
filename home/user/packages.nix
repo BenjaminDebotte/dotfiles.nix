@@ -15,6 +15,7 @@
       python-pkgs.requests
     ]))
     pkgs.lazygit
+    pkgs.tree-sitter
     pkgs.imagemagick
     pkgs.usbutils
 
