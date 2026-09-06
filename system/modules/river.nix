@@ -17,6 +17,7 @@
       qt6.qtwayland
       swayidle
       swaylock-effects
+      sway-audio-idle-inhibit
       wlogout
       wl-clipboard
       rofi

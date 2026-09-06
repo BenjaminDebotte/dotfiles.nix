@@ -207,6 +207,7 @@ pkill swaybg 2>/dev/null || true
 pkill mako 2>/dev/null || true
 pkill waybar 2>/dev/null || true
 pkill swayidle 2>/dev/null || true
+pkill sway-audio-idle-inhibit 2>/dev/null || true
 pkill gammastep 2>/dev/null || true
 rm -f "${XDG_RUNTIME_DIR:-/tmp}/gammastep-${UID:-$USER}.state" 2>/dev/null || true
 
@@ -227,6 +228,9 @@ waybar &
 
 # Idle management & screen lock
 swayidle -w timeout 300 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000' &
+
+# Automatic idle inhibitor when media/audio is playing (movies, streams, etc.)
+sway-audio-idle-inhibit &
 
 # Night light daemon (Gammastep: automatic evening red tone & dimming)
 gammastep &

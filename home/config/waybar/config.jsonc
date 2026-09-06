@@ -11,6 +11,7 @@
   "modules-center": ["river/window"],
   "modules-right": [
     "tray",
+    "idle_inhibitor",
     "bluetooth",
     "backlight",
     "temperature",
@@ -123,5 +124,16 @@
     "on-scroll-up": "brightnessctl set +5%",
     "on-scroll-down": "brightnessctl -n1 set 5%-",
     "on-click-right": "$HOME/.config/river/toggle-nightlight.sh"
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶 ",
+      "deactivated": "󰾪 "
+    },
+    "tooltip": true,
+    "tooltip-format-activated": "Idle inhibitor: Active (screen will not lock)",
+    "tooltip-format-deactivated": "Idle inhibitor: Inactive"
   }
 }
