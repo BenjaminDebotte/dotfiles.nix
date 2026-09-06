@@ -32,7 +32,7 @@ tasks:
   update:
     desc: "Update all flake inputs to their latest versions based on flake.lock"
     cmds:
-      - nix flake update {{.FLAKE}}
+      - nix flake update --flake {{.FLAKE}}
 
   clean:
     desc: "Run garbage collection via nh to free up space (keeps 3 generations & last 7 days)"
