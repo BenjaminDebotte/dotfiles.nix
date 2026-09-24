@@ -24,6 +24,11 @@ tasks:
     cmds:
       - nh os test {{.FLAKE}}
 
+  iso:
+    desc: "Build the minimal bootable installation ISO image"
+    cmds:
+      - nix build {{.FLAKE}}#nixosConfigurations.iso.config.system.build.isoImage
+
   update:
     desc: "Update all flake inputs to their latest versions based on flake.lock"
     cmds:
