@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   pkgs-unstable,
   ...
@@ -8,6 +9,7 @@
     pkgs.protonvpn-gui
     pkgs.python313Packages.proton-vpn-network-manager
     # Dev stuff
+    inputs.herdr.packages.${pkgs.system}.default
     pkgs.gcc
     pkgs.kubectl
     pkgs.k9s
