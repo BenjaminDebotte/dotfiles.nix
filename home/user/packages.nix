@@ -18,6 +18,8 @@
     pkgs.tree-sitter
     pkgs.imagemagick
     pkgs.usbutils
+    pkgs.sops
+    pkgs.age
 
     # Language Servers
     # https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md

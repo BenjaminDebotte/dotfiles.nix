@@ -21,6 +21,11 @@
       forwardAgent = true;
       addKeysToAgent = "yes";
       compression = true;
+      serverAliveInterval = 15;
+      serverAliveCountMax = 3;
+      controlMaster = "auto";
+      controlPath = "~/.ssh/master-%r@%h:%p";
+      controlPersist = "10m";
       extraConfig = ''
         IdentityFile ~/.ssh/id_ed25519
         User bdebotte

@@ -16,6 +16,8 @@
       # pkgs.next-ls
       # vimPlugins.elixir-tools-nvim
       ruff
+      sops
+      age
 
       # Formatters
       # https://github.com/stevearc/conform.nvim?tab=readme-ov-file#formatters
