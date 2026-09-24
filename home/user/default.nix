@@ -10,14 +10,4 @@
     ./neovim.nix
     ./ai.nix
   ];
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = _: true;
-
-      permittedInsecurePackages = [
-      ];
-    };
-  };
 }

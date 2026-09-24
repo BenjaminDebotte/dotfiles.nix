@@ -1,15 +1,10 @@
-{
-  inputs,
-  pkgs,
-  pkgs-unstable,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = [
     # Network
     pkgs.protonvpn-gui
     pkgs.python313Packages.proton-vpn-network-manager
     # Dev stuff
-    inputs.herdr.packages.${pkgs.system}.default
+    pkgs.herdr
     pkgs.gcc
     pkgs.kubectl
     pkgs.k9s
@@ -33,7 +28,7 @@
     pkgs.blueberry
 
     # Social
-    pkgs-unstable.vesktop
+    pkgs.unstable.vesktop
 
     # Gaming
     # pkgs.heroic
@@ -57,9 +52,6 @@
     pkgs.zsh-powerlevel10k
     pkgs.ethtool
     pkgs.viewnior
-    pkgs.catppuccin-cursors.macchiatoGreen
-    pkgs.catppuccin-gtk
-    pkgs.papirus-folders
 
     # Nix and System Management Tools
     pkgs.go-task

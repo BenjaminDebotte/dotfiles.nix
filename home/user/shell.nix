@@ -11,18 +11,12 @@
     vim = "nvim";
     cdot = "cd ~/.dotfiles";
 
-    # --- NixOS & Home Manager Rebuilds ---
-    nrs = "sudo nixos-rebuild switch --flake ~/.dotfiles/#nixos";
-    rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/#nixos";
-    nrb = "sudo nixos-rebuild boot --flake ~/.dotfiles/#nixos";
-    nrt = "sudo nixos-rebuild test --flake ~/.dotfiles/#nixos";
-    ndry = "sudo nixos-rebuild dry-build --flake ~/.dotfiles/#nixos";
-
-    hms = "home-manager switch --flake ~/.dotfiles/#bdebotte -b backup";
-    homeRebuild = "home-manager switch --flake ~/.dotfiles/#bdebotte -b backup";
-
-    fullRebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/#nixos && home-manager switch --flake ~/.dotfiles/#bdebotte -b backup";
-    allRebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/#nixos && home-manager switch --flake ~/.dotfiles/#bdebotte -b backup";
+    # --- NixOS & Home Manager Rebuilds (Unified) ---
+    nrs = "nh os switch ~/.dotfiles";
+    rebuild = "nh os switch ~/.dotfiles";
+    nrb = "nh os boot ~/.dotfiles";
+    nrt = "nh os test ~/.dotfiles";
+    ndry = "nh os test ~/.dotfiles";
 
     # --- Flake Operations ---
     nfc = "nix flake check ~/.dotfiles";
@@ -35,7 +29,6 @@
 
     # --- Generations & Rollbacks ---
     ngen = "nixos-rebuild list-generations";
-    hgen = "home-manager generations";
     nrollback = "sudo nixos-rebuild switch --rollback";
     ndiff = "nix store diff-closures /run/booted-system /run/current-system";
 

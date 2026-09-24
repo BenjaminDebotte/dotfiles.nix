@@ -3,6 +3,7 @@
     ./boot.nix
     ./fonts.nix
     ./hardware.nix
+    ./home-manager.nix
     ./internationalisation.nix
     ./misc.nix
     ./networking.nix

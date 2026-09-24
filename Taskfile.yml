@@ -24,11 +24,6 @@ tasks:
     cmds:
       - nh os test {{.FLAKE}}
 
-  home:
-    desc: "Apply Home Manager configuration (standalone)"
-    cmds:
-      - nh home switch {{.FLAKE}}
-
   update:
     desc: "Update all flake inputs to their latest versions based on flake.lock"
     cmds:

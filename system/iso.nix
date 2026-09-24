@@ -1,10 +1,10 @@
 {
-  inputs,
+  modulesPath,
   pkgs,
   ...
 }: {
   imports = [
-    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   # Activer les flakes par défaut sur l'ISO pour pouvoir installer directement

@@ -1,7 +1,10 @@
-_: {
+{inputs, ...}: {
   documentation.nixos.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = import ../../nix/overlays.nix {inherit inputs;};
+  };
 
   nix = {
     settings = {

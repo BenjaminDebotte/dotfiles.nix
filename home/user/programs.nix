@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs = {
     zoxide = {
       enable = true;
@@ -45,7 +41,7 @@
       enable = true;
       package = pkgs.firefox.override {cfg.enableTridactylNative = true;};
       profiles.bdebotte = {
-        extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
+        extensions.packages = with pkgs.firefox-addons; [
           darkreader
           tridactyl
           facebook-container

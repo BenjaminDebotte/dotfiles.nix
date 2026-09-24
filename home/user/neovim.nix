@@ -1,11 +1,7 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    package = pkgs.neovim-nightly;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
@@ -17,7 +13,7 @@
     extraPackages = with pkgs; [
       imagemagick
 
-      # inputs.next-ls
+      # pkgs.next-ls
       # vimPlugins.elixir-tools-nvim
       ruff
 

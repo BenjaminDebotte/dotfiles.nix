@@ -45,19 +45,15 @@
 
   outputs = {
     nixpkgs,
-    nixpkgs-unstable,
     nixos-hardware,
     home-manager,
     ...
   } @ inputs: let
     inherit (nixpkgs) lib;
     system = "x86_64-linux";
+    overlays = import ./nix/overlays.nix {inherit inputs;};
     pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-    pkgs-unstable = import nixpkgs-unstable {
-      inherit system;
+      inherit system overlays;
       config.allowUnfree = true;
     };
 
@@ -74,6 +70,7 @@
         specialArgs = {inherit inputs;};
         modules = [
           nixos-hardware.nixosModules.dell-xps-13-9300
+          home-manager.nixosModules.home-manager
           ./system/configuration.nix
         ];
       };
@@ -84,19 +81,6 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./system/iso.nix
-        ];
-      };
-    };
-
-    homeConfigurations = {
-      bdebotte = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {
-          inherit inputs pkgs pkgs-unstable;
-        };
-        modules = [
-          inputs.pi.homeModules.default
-          ./home
         ];
       };
     };
