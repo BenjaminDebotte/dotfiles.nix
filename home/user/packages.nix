@@ -9,6 +9,8 @@
     pkgs.python313Packages.proton-vpn-network-manager
     # Dev stuff
     pkgs.gcc
+    pkgs.kubectl
+    pkgs.k9s
     pkgs.go
     pkgs.lua
     (pkgs.python3.withPackages (python-pkgs: [
