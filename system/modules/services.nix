@@ -1,14 +1,39 @@
-_: {
-  services = {
-    dbus.enable = true;
-    picom.enable = false;
-    openssh.enable = true;
-    spice-vdagentd.enable = true;
-    tailscale.enable = true;
+{
+  config,
+  lib,
+  ...
+}: {
+  options.mySystem.hardware.laptop = {
+    enable = lib.mkEnableOption "Laptop power management (TLP, thermald)";
+  };
 
-    # Laptop specific
-    power-profiles-daemon.enable = false; # Ensure no conflict with TLP
-    tlp = {
+  config = {
+    services = {
+      dbus.enable = true;
+      picom.enable = false;
+      openssh.enable = true;
+      spice-vdagentd.enable = true;
+      tailscale.enable = true;
+
+      xserver = {
+        enable = true;
+        xkb.layout = "us";
+        xkb.options = "caps:super";
+      };
+      displayManager = {
+        defaultSession = "river";
+        autoLogin.enable = true;
+        autoLogin.user = "bdebotte";
+
+        sddm = {
+          enable = true;
+          wayland.enable = true;
+        };
+      };
+    };
+
+    services.power-profiles-daemon.enable = lib.mkIf config.mySystem.hardware.laptop.enable false;
+    services.tlp = lib.mkIf config.mySystem.hardware.laptop.enable {
       enable = true;
       settings = {
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
@@ -23,26 +48,6 @@ _: {
         PCIE_ASPM_ON_BAT = "powersupersave";
       };
     };
-
-    # Note: thermald is also enabled by nixos-hardware module for Dell XPS 13 9300
-    thermald.enable = true;
-    # end of laptop specific
-
-    xserver = {
-      enable = true;
-      xkb.layout = "us";
-      xkb.options = "caps:super";
-    };
-    displayManager = {
-      defaultSession = "river";
-      autoLogin.enable = true;
-      autoLogin.user = "bdebotte";
-
-      sddm = {
-        enable = true;
-        # theme = "${import ./sddm-theme.nix { inherit pkgs; }}";
-        wayland.enable = true;
-      };
-    };
+    services.thermald.enable = lib.mkIf config.mySystem.hardware.laptop.enable true;
   };
 }

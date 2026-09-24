@@ -23,12 +23,12 @@
   - Files: `flake.nix`, `Taskfile.yml`
 
 ## Module 3: Declarative Feature Flags (`feature-flags`)
-- [ ] Task 3.1: Define structured `mySystem` options for desktop and services.
+- [x] Task 3.1: Define structured `mySystem` options for desktop and services.
   - Acceptance: Options defined under `mySystem` for desktop, theme, audio, and user packages.
   - Verify: `nix eval .#nixosConfigurations.nixos.config.mySystem` evaluates cleanly.
   - Files: `system/modules/`, `system/configuration.nix`
 
-- [ ] Task 3.2: Format all files and run final validation.
+- [x] Task 3.2: Format all files and run final validation.
   - Acceptance: All nix files formatted with treefmt/alejandra, full closure evaluates cleanly.
   - Verify: `nix fmt`, `nix flake check`, and derivation path evaluation pass.
   - Files: all touched files
