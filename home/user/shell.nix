@@ -72,11 +72,12 @@ in {
       zcompdump="''${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION"
       mkdir -p "''${zcompdump:h}"
 
-      # Fast compinit with cache (skip slow compaudit on read-only Nix store)
+      # Fast compinit with cache (skip slow compaudit on read-only Nix store, pure zsh 24h check)
+      setopt local_options extended_glob
       if [[ -s "$zcompdump" && (! -s "$zcompdump.zwc" || "$zcompdump" -nt "$zcompdump.zwc") ]]; then
         compinit -C -d "$zcompdump"
         { zcompile "$zcompdump" } &!
-      elif [[ -s "$zcompdump" && $(find "$zcompdump" -mtime -1 2>/dev/null) ]]; then
+      elif [[ -s "$zcompdump" && -n "$zcompdump"(#qN.mh-24) ]]; then
         compinit -C -d "$zcompdump"
       else
         compinit -i -d "$zcompdump"
@@ -94,16 +95,16 @@ in {
       # Terminal application keypad mode (smkx/rmkx) & cursor shape handling
       function zle-line-init() {
         (( ''${+terminfo[smkx]} )) && echoti smkx
-        echo -ne '\e[5 q' # Beam cursor in insert mode
+        print -n -- '\e[5 q' # Beam cursor in insert mode
       }
       function zle-line-finish() {
         (( ''${+terminfo[rmkx]} )) && echoti rmkx
-        echo -ne '\e[2 q' # Block cursor on exit
+        print -n -- '\e[2 q' # Block cursor on exit
       }
       function zle-keymap-select() {
         case $KEYMAP in
-          vicmd) echo -ne '\e[2 q' ;;      # Block cursor in normal mode
-          viins|main) echo -ne '\e[5 q' ;; # Beam cursor in insert mode
+          vicmd) print -n -- '\e[2 q' ;;      # Block cursor in normal mode
+          viins|main) print -n -- '\e[5 q' ;; # Beam cursor in insert mode
         esac
       }
       zle -N zle-line-init
@@ -155,10 +156,6 @@ in {
         bindkey -M $keymap "^[[3~" delete-char
         [[ -n "''${terminfo[kdch1]}" ]] && bindkey -M $keymap "''${terminfo[kdch1]}" delete-char
 
-        # Backspace
-        bindkey -M $keymap "^?" backward-delete-char
-        bindkey -M $keymap "^H" backward-delete-char
-
         # Word Navigation (Ctrl+Left / Ctrl+Right)
         bindkey -M $keymap "^[[1;5D" backward-word
         bindkey -M $keymap "^[[5D" backward-word
@@ -166,13 +163,18 @@ in {
         bindkey -M $keymap "^[[5C" forward-word
       done
 
+      # Backspace bindings
+      bindkey -M viins "^?" backward-delete-char
+      bindkey -M viins "^H" backward-delete-char
+      bindkey -M vicmd "^?" backward-char
+      bindkey -M vicmd "^H" backward-char
+
       # --- Additional Insert Mode Ergonomics ---
       bindkey -M viins "^A" beginning-of-line
       bindkey -M viins "^E" end-of-line
       bindkey -M viins "^K" kill-line
       bindkey -M viins "^U" backward-kill-line
       bindkey -M viins "^W" backward-kill-word
-      bindkey -M viins "^R" history-incremental-search-backward
     '';
   };
 }
