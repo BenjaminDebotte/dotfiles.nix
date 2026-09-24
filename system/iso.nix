@@ -1,3 +1,7 @@
+# WHAT: Minimal bootable NixOS Live USB installer configuration.
+# WHY:  Provides a self-contained rescue/installer image without bloating the main workstation config.
+# HOW:  Imports minimal installation-cd modules, enables flakes, and provides basic recovery tools.
+# WHERE: Instantiated in `flake.nix` under `nixosConfigurations.iso`.
 {
   modulesPath,
   pkgs,

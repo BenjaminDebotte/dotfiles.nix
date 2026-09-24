@@ -1,3 +1,8 @@
+# WHAT: Repository development environment, formatters, and git pre-commit hooks.
+# WHY:  Keeps meta-repository developer tooling isolated from OS system and user configurations.
+# HOW:  Evaluates treefmt-nix (Alejandra) and git-hooks-nix (deadnix, statix, treefmt),
+#       exporting the formatter wrapper, pre-commit checks, and a devShell.
+# WHERE: Imported by `flake.nix` into `formatter`, `checks`, and `devShells`.
 {
   inputs,
   pkgs,
