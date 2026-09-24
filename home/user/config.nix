@@ -28,6 +28,5 @@ in {
     ".config/btop".source = "${configDir}/btop";
     ".config/rofi".source = "${configDir}/rofi";
     ".config/mako".source = "${configDir}/mako";
-    ".p10k.zsh".source = "${configDir}/zsh/.p10k.zsh";
   };
 }

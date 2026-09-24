@@ -51,7 +51,6 @@
     pkgs.vlc
 
     # Utils
-    pkgs.zsh-powerlevel10k
     pkgs.ethtool
     pkgs.viewnior
 
